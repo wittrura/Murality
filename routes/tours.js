@@ -6,7 +6,7 @@ const userId = 2
 // route to get artist list
 router.get('/', (req, res) => {
   knex('tours-murals')
-  .select('tours.id', 'toursMurals.tour_id', 'toursMurals.mural_id' 'murals.name as muralName', 'artists.name as artistName', 'murals.locationLat', 'murals.locationLong')
+  .select('tours.id', 'toursMurals.tour_id', 'toursMurals.mural_id', 'murals.name as muralName', 'artists.name as artistName', 'murals.locationLat', 'murals.locationLong')
   .innerJoin('tours', 'tours-murals.tour_id', 'tours.id')
   .innerJoin('murals', 'tours-murals.mural_id', 'murals.id')
   .where('tours.user_id', userId)
