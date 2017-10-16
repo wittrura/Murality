@@ -10,6 +10,8 @@ router.get('/', (req, res) => {
   .innerJoin('tours', 'tours-murals.tour_id', 'tours.id')
   .innerJoin('murals', 'tours-murals.mural_id', 'murals.id')
   .where('tours.user_id', userId)
+  .orderBy('tours-murals.tour_id', 'asc')
+  .orderBy('tours-murals.tour_stop', 'asc')
   .then((toursMurals) => {
     res.render('/tours/index', {toursMurals});
   })
