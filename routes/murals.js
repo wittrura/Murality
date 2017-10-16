@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   })
 });
 
-
+// route to get mural by ID with photos
 router.get('/:id', (req, res) => {
   knex('murals')
   .where({id: req.params.id}).first()
