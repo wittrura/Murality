@@ -6,9 +6,23 @@ const knex = require ('../db/knex')
 router.get('/', (req, res) => {
   knex('murals')
   .then((murals) =>{
+
     res.render('murals/index', {murals});
   })
 });
+
+router.get('/create', (req, res) => {
+  knex('neighborhoods')
+  // .select('name')
+  .then((neighborhoods) =>{
+    knex('artists')
+    // .select('name')
+    .then((artists) => {
+      console.log(artists, neighborhoods)
+      res.render('murals/create', {neighborhoods, artists});
+    })
+  })
+})
 
 // route to get mural by ID with photos
 router.get('/:id', (req, res) => {
@@ -21,11 +35,7 @@ router.get('/:id', (req, res) => {
       knex('neighborhoods')
       .where({id: mural.neighborhood_id}).first()
       .then((neighborhood) => {
-        knex('photos')
-        .where({mural_id: mural.id})
-        .then((photos) => {
-          res.render('murals/show', {mural, artist, neighborhood, photos});
-        })
+        res.render('murals/show', {mural, artist, neighborhood});
       })
     })
   })
@@ -34,8 +44,16 @@ router.get('/:id', (req, res) => {
 
 // route to post a new mural
 router.post('/', (req, res) => {
+  let newMural = {
+    name: req.body.name,
+    artist_id: req.body.artist_id,
+    description: req.body.description,
+    neighborhood_id: req.body.neighborhood_id,
+    user_id: 1
+  }
+  console.log(req.body)
   knex('murals')
-  .insert(req.body)
+  .insert(newMural)
   .then(() =>{
     res.redirect('/murals');
   })

@@ -3,6 +3,7 @@ exports.up = function (knex, Promise) {
     table.increments();
     table.string('name').notNullable().defaultTo('');
     table.string('description');
+    table.integer('photo_count');
     table.integer('artist_id')
       .notNullable()
       .references('id')
