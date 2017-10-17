@@ -40,25 +40,19 @@ app.use('/auth', auth);
 
 // sets up initial page
 app.get('/', (req, res, next) => {
-<<<<<<< HEAD
-  res.render('server');
-=======
-  res.render('main', {user: req.session.user});
->>>>>>> upstream/master
+  res.render('main', {
+    user: req.session.user
+  });
 });
 
 //routes to log-in page
 app.get('/login', (req, res, next) => {
-<<<<<<< HEAD
-  res.render('server/login');
-=======
   res.render('auth/login');
 });
 
 //routes to signup page
 app.get('/signup', (req, res, next) => {
   res.render('users/signup');
->>>>>>> upstream/master
 });
 
 // routes not found
