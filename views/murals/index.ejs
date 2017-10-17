@@ -9,7 +9,7 @@
     <h1>Mural List</h1>
     <ul>
       <% murals.forEach(mural => { %>
-        <li><%= mural.name %></li>
+        <li><a href="murals/<%=mural.id%>"><%= mural.name %></a></li>
       <% }) %>
 
     </ul>
