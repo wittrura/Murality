@@ -1,20 +1,20 @@
 exports.up = function (knex, Promise) {
-  return knex.schema.createTable('mural', (table) => {
+  return knex.schema.createTable('murals', (table) => {
     table.increments();
     table.string('name').notNullable().defaultTo('');
     table.string('description');
     table.integer('artist_id')
       .notNullable()
       .references('id')
-      .inTable('artist');
+      .inTable('artists');
     table.integer('neighborhood_id')
       .notNullable()
       .references('id')
-      .inTable('neighborhood');
+      .inTable('neighborhoods');
     table.integer('user_id')
       .notNullable()
       .references('id')
-      .inTable('user');
+      .inTable('users');
     table.string('latitude').notNullable().defaultTo('');
     table.string('longitude').notNullable().defaultTo('');
     table.timestamps(true, true);
@@ -22,5 +22,5 @@ exports.up = function (knex, Promise) {
 };
 
 exports.down = function (knex, Promise) {
-  return knex.schema.dropTable('mural');
+  return knex.schema.dropTable('murals');
 };

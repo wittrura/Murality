@@ -2,10 +2,10 @@
 
 exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
-  return knex('neighborhood_artist').del()
+  return knex('neighborhoods_artists').del()
     .then(() =>
       // Inserts seed entries
-      knex('neighborhood_artist').insert([
+      knex('neighborhoods_artists').insert([
         { artist_id: 1, neighborhood_id: 1 },
       ]));
 };

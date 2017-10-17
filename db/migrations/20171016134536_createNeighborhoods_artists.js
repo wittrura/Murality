@@ -1,18 +1,18 @@
 exports.up = function (knex, Promise) {
-  return knex.schema.createTable('neighborhood_artist', (table) => {
+  return knex.schema.createTable('neighborhoods_artists', (table) => {
     table.increments();
     table.integer('artist_id')
       .notNullable()
       .references('id')
-      .inTable('artist');
+      .inTable('artists');
     table.integer('neighborhood_id')
       .notNullable()
       .references('id')
-      .inTable('neighborhood');
+      .inTable('neighborhoods');
     table.timestamps(true, true);
   });
 };
 
 exports.down = function (knex, Promise) {
-  return knex.schema.dropTable('neighborhood_artist');
+  return knex.schema.dropTable('neighborhoods_artists');
 };

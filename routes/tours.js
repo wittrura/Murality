@@ -5,15 +5,17 @@ const userId = 2
 
 // route to get artist list
 router.get('/', (req, res) => {
-  knex('tours-murals')
-  .select('tours.id', 'toursMurals.tour_id', 'toursMurals.mural_id', 'murals.name as muralName', 'artists.name as artistName', 'murals.locationLat', 'murals.locationLong')
-  .innerJoin('tours', 'tours-murals.tour_id', 'tours.id')
-  .innerJoin('murals', 'tours-murals.mural_id', 'murals.id')
+  knex('tours_murals')
+  .select('tours.id', 'tours_murals.tour_id', 'tours_murals.mural_id', 'tours_murals.tour_stop', 'murals.name as muralName', 'artists.name as artistName', 'murals.latitude', 'murals.longitude')
+  .innerJoin('tours', 'tours_murals.tour_id', 'tours.id')
+  .innerJoin('murals', 'tours_murals.mural_id', 'murals.id')
+  .innerJoin('artists', 'murals.artist_id', 'artists.id')
   .where('tours.user_id', userId)
-  .orderBy('tours-murals.tour_id', 'asc')
-  .orderBy('tours-murals.tour_stop', 'asc')
+  .orderBy('tours_murals.tour_id', 'asc')
+  .orderBy('tours_murals.tour_stop', 'asc')
   .then((toursMurals) => {
-    res.render('/tours/index', {toursMurals});
+    res.send(toursMurals);
+    //res.render('tours/index', {toursMurals});
   })
 });
 
@@ -43,7 +45,7 @@ router.delete('/:id', (req, res) => {
   .del()
   .where({id: req.params.id})
   .then(() =>{
-    res.redirect('/tours/');
+    res.redirect('/tours');
   })
 })
 

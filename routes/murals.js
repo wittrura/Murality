@@ -6,7 +6,7 @@ const knex = require ('../db/knex')
 router.get('/', (req, res) => {
   knex('murals')
   .then((murals) =>{
-    res.render('/murals/index', {murals});
+    res.render('murals/index', {murals});
   })
 });
 
@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
         knex('photos')
         .where({mural_id: mural.id})
         .then((photos) => {
-          res.render('/murals/show', {mural, artist, neighborhood, photos});
+          res.render('murals/show', {mural, artist, neighborhood, photos});
         })
       })
     })
