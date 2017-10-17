@@ -8,8 +8,17 @@
   <body>
     <h1>Murality Austin</h1>
     <!-- TODO We need a route to the server.new.ejs -->
+    <% if (user) { %>
+      <p>Signed in as ID # <%= user.id %></p>
+      <p>Signed in as <%= user.email %></p>
+      <p><a href='/auth/logout'>Logout</a></p>
+    <% } else { %>
+      <p>Not signed in</p>
+      <p><a href='/login'>Login</a></p>
+    <% } %>
+    <!--
     <button type="button" name="button"><a href="/login">Sign-in</a></button>
-    <button type="button" name="button"><a href="/server">Log-out</a></button>
+    <button type="button" name="button"><a href="/server">Log-out</a></button> -->
     <ul>
         <li><a href="/artists">Artists</a></li>
         <li><a href="/neighborhoods">Neighborhoods</a></li>

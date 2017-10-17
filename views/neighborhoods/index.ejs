@@ -2,6 +2,8 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.js'></script>
     <meta charset="utf-8">
     <title>Neighborhoods</title>
   </head>
@@ -13,5 +15,18 @@
       <% }) %>
 
     </ul>
+
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1Ijoid2l0dHJ1cmEiLCJhIjoiY2o4dzFtZm1vMWlueDM4bjV4OHg0aGczZSJ9.JpDCG8sGuO_igx1JjUa4Pw';
+      var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [-97.7437,
+                30.2711], // starting position [lng, lat]
+      zoom: 9 // starting zoom
+      });
+    </script>
+    
   </body>
 </html>
