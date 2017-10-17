@@ -52,7 +52,7 @@
           <label for="artist-name">Artist Name</label>
           <select id="artist-name" class="pure-input-1-2" name="artist_id">
                   <% artists.forEach((artist) => {  %>
-                    <option><%= artist.name %></option>
+                    <option value="<%= artist.id %>"><%= artist.name %></option>
                   <% }) %>
                     </select>
         </div>
@@ -66,7 +66,7 @@
           <label for="neighborhood">Neighborhood</label>
           <select id="neighborhood" class="pure-input-1-2" name="neighborhood_id">
                   <% neighborhoods.forEach((neighborhood) => {  %>
-                    <option><%= neighborhood.name %></option>
+                    <option value="<%= neighborhood.id %>"><%= neighborhood.name %></option>
                   <% }) %>
                     </select>
         </div>
