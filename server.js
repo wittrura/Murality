@@ -44,8 +44,8 @@ app.get('/', (req, res, next) => {
 });
 
 //routes to log-in page
-app.get('/new', (req, res, next) => {
-  res.render('server/new');
+app.get('/login', (req, res, next) => {
+  res.render('server/login');
 });
 
 // routes not found

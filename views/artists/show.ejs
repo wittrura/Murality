@@ -10,5 +10,9 @@
     <ul>
       <li>Bio: <%= artist.bio %></li>
     </ul>
+    <h2>Murals</h2>
+    <% murals.forEach(mural => { %>
+      <img src="https://i.imgur.com/w9OmB8N.jpg" alt="mural" width="400" height="300">
+    <% }) %>
   </body>
 </html>
