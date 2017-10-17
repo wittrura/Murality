@@ -1,10 +1,10 @@
 
 exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
-  return knex('artist').del()
+  return knex('artists').del()
     .then(() =>
       // Inserts seed entries
-      knex('artist').insert([
+      knex('artists').insert([
         { name: 'Federico', bio: 'A cool guy', user_id: 1 },
         { name: 'Lucas Aoki', bio: 'Not related to steve', user_id: 1 },
         { name: 'Mez Data', bio: 'The best kind of data', user_id: 1 },

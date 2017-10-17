@@ -11,7 +11,9 @@
     <% let tourCount = 1; %>
     <% let firstList = true; %>
       <% toursMurals.forEach(tour => { %>
-        <% if (tour.tour_id !== curTourId) {
+
+
+        <% if (tour.tour_id !== curTourId) { %>
           <% if (firstList) { %>
             <% firstList = false; %>
           <% } else { %>
@@ -20,7 +22,7 @@
           <h3><%= tourCount++ %></h3>
           <ol>
         <% } %>
-            <li><%= toursMurals.muralName + ', ' + toursMurals.artistName %></li>
+            <li><%= tour.muralName + ', ' + tour.artistName %></li>
       <% }) %>
     </ol>
   </body>

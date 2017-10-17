@@ -6,7 +6,9 @@ const knex = require ('../db/knex')
 router.get('/', (req, res) => {
   knex('artists')
   .then((artists) =>{
-    res.render('/artists/index', {artists});
+
+    res.render('artists/index', {artists});
+
   })
 });
 

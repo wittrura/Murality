@@ -1,10 +1,10 @@
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
+  return knex('tours_murals').del()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
+      return knex('tours_murals').insert([
         {tour_id: 1, mural_id: 1, tour_stop: 1},
         {tour_id: 1, mural_id: 2, tour_stop: 4},
         {tour_id: 1, mural_id: 3, tour_stop: 2},

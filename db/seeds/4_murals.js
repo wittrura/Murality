@@ -1,10 +1,10 @@
 
 exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
+  return knex('murals').del()
     .then(() =>
       // Inserts seed entries
-      knex('table_name').insert([
+      knex('murals').insert([
         {
           name: 'Big Eye', description: 'just what it sounds like', artist_id: 1, neighborhood_id: 3, user_id: 1,
         },
