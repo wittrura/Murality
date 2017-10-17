@@ -1,14 +1,17 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-
 const PORT = process.env.PORT || 8080;
 const app = express();
+
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('cookie-session');
 
 const murals = require('./routes/murals');
 const neighborhoods = require('./routes/neighborhoods');
 const artists = require('./routes/artists');
 const tours = require('./routes/tours');
 const users = require('./routes/users');
+const auth = require('./routes/auth');
 
 // forms handling
 app.use(bodyParser.urlencoded({
@@ -19,12 +22,21 @@ app.use(bodyParser.json());
 // configure ejs for templating
 app.set('view engine', 'ejs');
 
+// authorization
+app.use(cookieParser());
+app.use(session({
+  keys: ["dskjf0qi340oij2k3j93387dlk@#$", "@#$WFEW#$CFDSdsfdsdlkajhi"],
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
+
 // routes
 app.use('/murals', murals);
 app.use('/neighborhoods', neighborhoods);
 app.use('/artists', artists);
 app.use('/tours', tours);
 app.use('/users', users);
+app.use('/auth', auth);
 
 // TODO - delete after deploying to production
 app.get('/', (req, res, next) => {
