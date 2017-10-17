@@ -9,7 +9,7 @@
     <h1>Artist List</h1>
     <ul>
       <% artists.forEach(artist => { %>
-        <li><%= artist.name %></li>
+        <li><a href="artists/<%= artist.id %>"><%= artist.name %></li>
       <% }) %>
 
     </ul>

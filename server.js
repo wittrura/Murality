@@ -38,9 +38,14 @@ app.use('/tours', tours);
 app.use('/users', users);
 app.use('/auth', auth);
 
-// TODO - delete after deploying to production
+// sets up initial page
 app.get('/', (req, res, next) => {
-  res.send('hello world');
+  res.render('server');
+});
+
+//routes to log-in page
+app.get('/login', (req, res, next) => {
+  res.render('server/login');
 });
 
 // routes not found
