@@ -6,9 +6,22 @@ const knex = require ('../db/knex')
 router.get('/', (req, res) => {
   knex('murals')
   .then((murals) =>{
+
     res.render('murals/index', {murals});
   })
 });
+
+router.get('/create', (req, res) => {
+  knex('neighborhoods')
+  .select('name')
+  .then((neighborhoods) =>{
+    knex('artists')
+    .select('name')
+    .then((artists) => {
+      res.render('murals/create', {neighborhoods, artists});
+    })
+  })
+})
 
 // route to get mural by ID with photos
 router.get('/:id', (req, res) => {
@@ -24,7 +37,9 @@ router.get('/:id', (req, res) => {
         knex('photos')
         .where({mural_id: mural.id})
         .then((photos) => {
+
           res.render('murals/show', {mural, artist, neighborhood, photos});
+
         })
       })
     })
@@ -35,6 +50,7 @@ router.get('/:id', (req, res) => {
 // route to post a new mural
 router.post('/', (req, res) => {
   knex('murals')
+  console.log(req.body)
   .insert(req.body)
   .then(() =>{
     res.redirect('/murals');
