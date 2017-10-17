@@ -5,6 +5,7 @@ const knex = require('../db/knex')
 // route to get artist list
 router.get('/', (req, res) => {
   knex('artists')
+<<<<<<< HEAD
     .then((artists) => {
       res.render('artists/index', {
         artists
@@ -25,6 +26,13 @@ router.get('/:id', (req, res) => {
         artist
       })
     });
+=======
+  .then((artists) =>{
+
+    res.render('artists/index', {artists});
+
+  })
+>>>>>>> upstream/master
 });
 
 // route to post a new artist

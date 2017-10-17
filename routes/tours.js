@@ -5,6 +5,7 @@ const userId = 2
 
 // route to get artist list
 router.get('/', (req, res) => {
+
   knex('tours_murals')
   .select('tours.id', 'tours_murals.tour_id', 'tours_murals.mural_id', 'tours_murals.tour_stop', 'murals.name as muralName', 'artists.name as artistName', 'murals.latitude', 'murals.longitude')
   .innerJoin('tours', 'tours_murals.tour_id', 'tours.id')
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
   .orderBy('tours_murals.tour_stop', 'asc')
   .then((toursMurals) => {
     res.render('tours/index', {toursMurals});
+
   })
 });
 
@@ -44,7 +46,9 @@ router.delete('/:id', (req, res) => {
   .del()
   .where({id: req.params.id})
   .then(() =>{
+
     res.redirect('/tours');
+
   })
 })
 
