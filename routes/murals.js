@@ -39,7 +39,6 @@ router.get('/:id', (req, res) => {
         .where({mural_id: mural.id})
         .then((photos) => {
           res.render('murals/show', {mural, artist, neighborhood, photos});
-
         })
       })
     })
@@ -56,12 +55,9 @@ router.post('/', (req, res) => {
     neighborhood_id: req.body.neighborhood_id,
     user_id: 1
   }
-
   console.log(req.body)
   knex('murals')
   .insert(newMural)
-
-  //insert photo into photos
   .then(() =>{
     res.redirect('/murals');
   })
