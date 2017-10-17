@@ -14,8 +14,7 @@ router.get('/', (req, res) => {
   .orderBy('tours_murals.tour_id', 'asc')
   .orderBy('tours_murals.tour_stop', 'asc')
   .then((toursMurals) => {
-    res.send(toursMurals);
-    //res.render('tours/index', {toursMurals});
+    res.render('tours/index', {toursMurals});
   })
 });
 
