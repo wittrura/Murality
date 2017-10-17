@@ -23,10 +23,15 @@ app.use('/artists', artists);
 app.use('/tours', tours);
 
 
-// TODO - delete after deploying to production
+// sets up initial page
 app.get('/', (req, res, next) => {
-  res.send('hello world');
-})
+  res.render('server');
+});
+
+//routes to log-in page
+app.get('/new', (req, res, next) => {
+  res.render('server/new');
+});
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
