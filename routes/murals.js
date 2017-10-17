@@ -13,11 +13,12 @@ router.get('/', (req, res) => {
 
 router.get('/create', (req, res) => {
   knex('neighborhoods')
-  .select('name')
+  // .select('name')
   .then((neighborhoods) =>{
     knex('artists')
-    .select('name')
+    // .select('name')
     .then((artists) => {
+      console.log(artists, neighborhoods)
       res.render('murals/create', {neighborhoods, artists});
     })
   })
@@ -37,7 +38,6 @@ router.get('/:id', (req, res) => {
         knex('photos')
         .where({mural_id: mural.id})
         .then((photos) => {
-
           res.render('murals/show', {mural, artist, neighborhood, photos});
 
         })
@@ -49,9 +49,19 @@ router.get('/:id', (req, res) => {
 
 // route to post a new mural
 router.post('/', (req, res) => {
-  knex('murals')
+  let newMural = {
+    name: req.body.name,
+    artist_id: req.body.artist_id,
+    description: req.body.description,
+    neighborhood_id: req.body.neighborhood_id,
+    user_id: 1
+  }
+
   console.log(req.body)
-  .insert(req.body)
+  knex('murals')
+  .insert(newMural)
+
+  //insert photo into photos
   .then(() =>{
     res.redirect('/murals');
   })
