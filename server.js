@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override')
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -12,6 +13,10 @@ const artists = require('./routes/artists');
 const tours = require('./routes/tours');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+
+
+// http method middleware for PATCH and DELETE
+app.use(methodOverride('_method'));
 
 // forms handling
 app.use(bodyParser.urlencoded({
