@@ -11,6 +11,33 @@ router.get('/', (req, res) => {
       });
     })
 });
+router.get('/create', (req, res) => {
+  knex('neighborhoods')
+    // .select('name')
+    .then((neighborhoods) => {
+      knex('murals')
+        // .select('name')
+        .then((murals) => {
+          console.log(murals, neighborhoods)
+          res.render('artists/create', {
+            neighborhoods,
+            murals
+          });
+        });
+    });
+});
+router.get('/:id/edit', (req, res) => {
+  knex('artists')
+    .where({
+      id: req.params.id
+    })
+    .first()
+    .then((artist) => {
+      res.render('artists/edit', {
+        artist,
+      });
+    });
+});
 
 // route to get an individual artist
 router.get('/:id', (req, res) => {
@@ -33,17 +60,27 @@ router.get('/:id', (req, res) => {
     });
 });
 
+
+
 // route to post a new artist
 router.post('/', (req, res) => {
+  let newArtist = {
+    name: req.body.name,
+    bio: req.body.bio,
+    user_id: 1
+  };
+  console.log(req.body)
   knex('artists')
-    .insert(req.body)
+    .insert(newArtist)
     .then(() => {
       res.redirect('/artists');
     });
 });
 
+
 // route to update an artist
 router.patch('/:id', (req, res) => {
+  console.log(req.body);
   knex('artists')
     .update(req.body)
     .where({
