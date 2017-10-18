@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const knex = require ('../db/knex')
+const cloudinary = require('cloudinary');
+require('dotenv').config();
+// console.log(process.env.api_key);
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret
+});
+
 
 // route to get mural list
 router.get('/', (req, res) => {
@@ -18,7 +27,7 @@ router.get('/create', (req, res) => {
     knex('artists')
     // .select('name')
     .then((artists) => {
-      console.log(artists, neighborhoods)
+      // console.log(artists, neighborhoods)
       res.render('murals/create', {neighborhoods, artists});
     })
   })
@@ -35,7 +44,11 @@ router.get('/:id', (req, res) => {
       knex('neighborhoods')
       .where({id: mural.neighborhood_id}).first()
       .then((neighborhood) => {
-        res.render('murals/show', {mural, artist, neighborhood});
+        knex('photos')
+        .where({mural_id : mural.id})
+        .then((photos) => {
+          res.render('murals/show', {mural, artist, neighborhood, photos});
+        })
       })
     })
   })
@@ -49,14 +62,22 @@ router.post('/', (req, res) => {
     artist_id: req.body.artist_id,
     description: req.body.description,
     neighborhood_id: req.body.neighborhood_id,
+    photo_count: 0,
     user_id: 1
   }
-  console.log(req.body)
   knex('murals')
   .insert(newMural)
-  .then(() =>{
+  .returning('*')
+  .then((murals) =>{
+    // console.log('key',process.env.api_key,'file',req.body.myfile);
+    //cloudinary.uploader.upload(`${req.body.myfile}`, function(result) {
+    //console.log(result)
     res.redirect('/murals');
-  })
+});
+
+    // cloudinary.uploader.upload("/Users/johnmccambridge/Desktop/test.png", { public_id: req.body.name + `/${++murals.photo_count}`},
+    // function(error, result) {console.log(result) });
+  //})
 })
 
 // route to update an mural
