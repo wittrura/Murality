@@ -3,6 +3,7 @@
 
   <body>
     <h1>Artist List</h1>
+    <a href ="artists/create"><button type="submit" class="pure-button pure-button-primary">Create</button></a>
     <ul>
       <% artists.forEach(artist => { %>
         <li><a href="artists/<%= artist.id %>"><%= artist.name %></li>
