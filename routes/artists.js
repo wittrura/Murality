@@ -53,7 +53,6 @@ router.get('/:id', (req, res) => {
     .then((murals) => {
       let imageList = [];
       return murals.map(mural => {
-        console.log(mural.id);
         return knex('photos')
         .where({mural_id: mural.id}).first()
         .then((photo) => {
@@ -65,8 +64,6 @@ router.get('/:id', (req, res) => {
       return Promise.all(muralPromises);
     })
     .then((imageList) => {
-      console.log(imageList);
-      console.log(imageList.length);
       res.render('artists/show', {artist, imageList});
     });
 });
