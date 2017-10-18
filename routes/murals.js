@@ -103,7 +103,9 @@ router.post('/', (req, res) => {
     description: req.body.description,
     neighborhood_id: req.body.neighborhood_id,
     photo_count: 0,
-    user_id: 1
+    user_id: 1,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude
   }
   knex('murals')
     .insert(newMural)
