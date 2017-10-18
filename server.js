@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override')
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -13,6 +14,11 @@ const tours = require('./routes/tours');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const photos = require('./routes/photos');
+const api = require('./routes/api');
+
+
+// http method middleware for PATCH and DELETE
+app.use(methodOverride('_method'));
 
 // forms handling
 app.use(bodyParser.urlencoded({
@@ -39,6 +45,7 @@ app.use('/photos', photos);
 app.use('/tours', tours);
 app.use('/users', users);
 app.use('/auth', auth);
+app.use('/api', api);
 
 // CSS directory
 app.use("/css",express.static(__dirname + "/css"));

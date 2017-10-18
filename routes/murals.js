@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const knex = require ('../db/knex')
+const knex = require('../db/knex')
 const cloudinary = require('cloudinary');
 require('dotenv').config();
 // console.log(process.env.api_key);
@@ -10,50 +10,90 @@ cloudinary.config({
   api_secret: process.env.api_secret
 });
 
-
 // route to get mural list
 router.get('/', (req, res) => {
   knex('murals')
-  .then((murals) =>{
+    .then((murals) => {
 
-    res.render('murals/index', {murals});
-  })
+      res.render('murals/index', {
+        murals
+      });
+    });
 });
 
+//grabs the new mural page
 router.get('/create', (req, res) => {
   knex('neighborhoods')
-  // .select('name')
-  .then((neighborhoods) =>{
-    knex('artists')
     // .select('name')
+    .then((neighborhoods) => {
+      knex('artists')
+        // .select('name')
+        .then((artists) => {
+          console.log(artists, neighborhoods)
+          res.render('murals/create', {
+            neighborhoods,
+            artists
+          });
+        })
+    });
+});
+
+//grabs the edit murals page
+router.get('/:id/edit', (req, res) => {
+  knex('artists')
     .then((artists) => {
-      // console.log(artists, neighborhoods)
-      res.render('murals/create', {neighborhoods, artists});
-    })
-  })
-})
+      knex('neighborhoods')
+        .then((neighborhoods) => {
+          knex('murals')
+            .where({
+              id: req.params.id
+            })
+            .first()
+            .then((mural) => {
+              res.render('murals/edit', {
+                artists,
+                neighborhoods,
+                mural
+              });
+
+            })
+        })
+    });
+});
 
 // route to get mural by ID with photos
 router.get('/:id', (req, res) => {
   knex('murals')
-  .where({id: req.params.id}).first()
-  .then((mural) => {
-    knex('artists')
-    .where({id: mural.artist_id}).first()
-    .then((artist) => {
-      knex('neighborhoods')
-      .where({id: mural.neighborhood_id}).first()
-      .then((neighborhood) => {
-        knex('photos')
-        .where({mural_id : mural.id})
-        .then((photos) => {
-          res.render('murals/show', {mural, artist, neighborhood, photos});
-        })
-      })
-    })
-  })
+    .where({
+      id: req.params.id
+    }).first()
+    .then((mural) => {
+      knex('artists')
+        .where({
+          id: mural.artist_id
+        }).first()
+        .then((artist) => {
+          knex('neighborhoods')
+            .where({
+              id: mural.neighborhood_id
+            }).first()
+            .then((neighborhood) => {
+              knex('photos')
+                .where({
+                  mural_id: mural.id
+                })
+                .then((photos) => {
+                  res.render('murals/show', {
+                    mural,
+                    artist,
+                    neighborhood,
+                    photos
+                  });
+                });
+            });
+        });
+    });
 });
-
 
 // route to post a new mural
 router.post('/', (req, res) => {
@@ -66,38 +106,35 @@ router.post('/', (req, res) => {
     user_id: 1
   }
   knex('murals')
-  .insert(newMural)
-  .returning('*')
-  .then((murals) =>{
-    // console.log('key',process.env.api_key,'file',req.body.myfile);
-    //cloudinary.uploader.upload(`${req.body.myfile}`, function(result) {
-    //console.log(result)
-    res.redirect('/murals');
+    .insert(newMural)
+    .returning('*')
+    .then((murals) => {
+      res.redirect('/murals');
+    });
 });
-
-    // cloudinary.uploader.upload("/Users/johnmccambridge/Desktop/test.png", { public_id: req.body.name + `/${++murals.photo_count}`},
-    // function(error, result) {console.log(result) });
-  //})
-})
 
 // route to update an mural
 router.patch('/:id', (req, res) => {
   knex('murals')
-  .update(req.body)
-  .where({id: req.params.id})
-  .then(() =>{
-    res.redirect('/murals');
-  })
-})
+    .update(req.body)
+    .where({
+      id: req.params.id
+    })
+    .then(() => {
+      res.redirect(`/murals/${req.params.id}`);
+    });
+});
 
 // route to delete an mural
 router.delete('/:id', (req, res) => {
   knex('murals')
-  .del()
-  .where({id: req.params.id})
-  .then(() =>{
-    res.redirect('/murals');
-  })
-})
+    .del()
+    .where({
+      id: req.params.id
+    })
+    .then(() => {
+      res.redirect('/murals');
+    });
+});
 
 module.exports = router
