@@ -2,6 +2,7 @@
 
 <h1><%= artist.name %></h1>
 <!-- TODO we need to create a route to this show page -->
+<a href ="/artists/<%=artist.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Artist</button></a>
 <ul class='list'>
   <li>Bio: <%= artist.bio %></li>
 </ul>
@@ -9,9 +10,9 @@
 <div id="map" style="height: 200px; width: 400px"></div>
 
 <h2>Murals</h2>
-<% murals.forEach(mural => { %>
-  <a href="/murals/<%=mural.id%>">
-    <img src="https://i.imgur.com/w9OmB8N.jpg" alt="mural" width="400" height="300">
+<% imageList.forEach(image => { %>
+    <a href="/murals/<%=image.mural_id%>">
+    <img src="<%=image.url%>" alt="mural" width="400" height="300">
   </a>
 <% }) %>
 
