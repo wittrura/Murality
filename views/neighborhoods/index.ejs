@@ -1,32 +1,99 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.js'></script>
-    <meta charset="utf-8">
-    <title>Neighborhoods</title>
-  </head>
-  <body>
-    <h1>Neighborhood List</h1>
-    <ul>
-      <% neighborhoods.forEach(neighborhood => { %>
-        <li><%= neighborhood.name %></li>
-      <% }) %>
+<%- include ../partials/header.ejs %>
 
-    </ul>
 
-    <div id='map' style='width: 400px; height: 300px;'></div>
-    <script>
-      mapboxgl.accessToken = 'pk.eyJ1Ijoid2l0dHJ1cmEiLCJhIjoiY2o4dzFtZm1vMWlueDM4bjV4OHg0aGczZSJ9.JpDCG8sGuO_igx1JjUa4Pw';
-      var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v10',
-      center: [-97.7437,
-                30.2711], // starting position [lng, lat]
-      zoom: 9 // starting zoom
+<h1>Neighborhood List</h1>
+<ul class='list'>
+  <% neighborhoods.forEach(neighborhood => { %>
+    <li data-id="<%= neighborhood.id %>"><%= neighborhood.name %></li>
+  <% }) %>
+</ul>
+
+<div id="map" style="height: 400px; width: 100%"></div>
+
+<script>
+  let markers = [];
+  let map = null;
+
+  function initMap() {
+    let austin = {lat:30.2711, lng: -97.7437};
+
+    // instantiate infowindow
+    let infoWindow = new google.maps.InfoWindow();
+
+    // instantiate map
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: austin
+    });
+
+    // get data to populate markers array
+    getMurals(map, infoWindow);
+
+    // handler to update the visible and hidden markers based on filtering by neighborhood_id
+    document.getElementsByClassName('list')[0].addEventListener("click", (e) => {
+      updateMarkersFilter(e.target.dataset.id);
+    });
+  }
+
+  function getMurals(map, infoWindow, neighborhood_id) {
+    let url = null;
+    neighborhood_id ? url = `/api/murals?neighborhood=${neighborhood_id}` : url = "/api/murals";
+    $.get(url, function(murals) {
+      murals.forEach((mural) => {
+        // parse latitude and longitude from string, to number, to google latlng
+        let latLng = new google.maps.LatLng(+mural.latitude, +mural.longitude);
+
+        let marker = new google.maps.Marker({
+          position: latLng,
+          map: map,
+          title: mural.name,
+          neighborhood_id: mural.neighborhood_id
+        });
+
+        let content = `
+        <div><a href='/murals/${mural.id}'>${mural.name}</a></div>
+        <div>Description: ${mural.description}</div>
+        <div>neighborhood_id: ${mural.neighborhood_id}</div>
+        `;
+
+        marker.addListener('click', function() {
+          // check that the infowindow is not already opened on this marker
+          if (infoWindow.marker != marker) {
+            // assign marker, content, and open infowindow
+            infoWindow.marker = marker;
+            infoWindow.setContent(content);
+            infoWindow.open(map, marker);
+
+            // clear marker property if an infowindow is closed
+            infoWindow.addListener('closeclick', function() {
+              infoWindow.marker = null;
+            });
+          } else {
+            infoWindow.close();
+            infoWindow.marker = null;
+          }
+        });
+
+        markers.push(marker);
       });
-    </script>
-    
-  </body>
-</html>
+    });
+  }
+
+  function updateMarkersFilter(neighborhood_id) {
+    for (var i = 0; i < markers.length; i++) {
+      // display markers if no id is provided for filter, or if neighborhood_id matches filter
+      if(!neighborhood_id || markers[i].neighborhood_id === +neighborhood_id) {
+        markers[i].setMap(map);
+      } else {
+        // hide all others
+        markers[i].setMap(null);
+      }
+    }
+  }
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZ7QSSFjfBAECc_XNeQZ4q93CH5yemcs&callback=initMap">
+</script>
+
+<%- include ../partials/footer.ejs %>

@@ -1,22 +1,35 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-    <meta charset="utf-8">
-    <title>Mural</title>
-  </head>
-  <body>
-    <h1><%= mural.name %></h1>
-      <a href ="/murals/<%=mural.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Mural</button></a>
+<%- include ../partials/header.ejs %>
+
+    <h1><%= mural.name.replace('_',' ') %></h1>
+
+    <a href ="/murals/<%=mural.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Mural</button></a>
+    <a href="#" id="upload_widget_opener"><button type="submit" class="pure-button pure-button-primary">Upload multiple images</button></a>
     <ul>
       <li>Description: <%= mural.description %></li>
       <li>Artist: <%= artist.name %></li>
       <li>Neighborhood: <%= neighborhood.name %></li>
     </ul>
-    <% let curPhoto = 1; %>
-    <% while (curPhoto <= mural.photo_count) {%>
-      <img src="http://res.cloudinary.com/murality/<%=mural.name+'/'+curPhoto%>.jpg" alt="mural" width="400" height="300">
-      <% curPhoto++; %>
-    <% } %>
-  </body>
-</html>
+
+    <% photos.forEach( photo => { %>
+      <img src="<%=photo.url%>" alt="mural">
+    <% }) %>
+
+    <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    document.getElementById("upload_widget_opener").addEventListener("click", function() {
+      cloudinary.openUploadWidget({ cloud_name: 'murality', upload_preset: 'vh3mwzgv'},
+      function(error, result) { console.log(error, result) });
+    }, false);
+    $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
+      console.log(data.secure_url);
+      $.ajax({
+    type: "POST",
+    url: '/photos',
+    data: {url: data.secure_url, mural_id: <%= mural.id %>}
+  });
+})
+    </script>
+
+
+<%- include ../partials/footer.ejs %>

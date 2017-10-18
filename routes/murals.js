@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../db/knex')
+const cloudinary = require('cloudinary');
+require('dotenv').config();
+// console.log(process.env.api_key);
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret
+});
 
 // route to get mural list
 router.get('/', (req, res) => {
@@ -10,7 +18,7 @@ router.get('/', (req, res) => {
       res.render('murals/index', {
         murals
       });
-    })
+    });
 });
 
 //grabs the new mural page
@@ -27,8 +35,8 @@ router.get('/create', (req, res) => {
             artists
           });
         })
-    })
-})
+    });
+});
 
 //grabs the edit murals page
 router.get('/:id/edit', (req, res) => {
@@ -70,16 +78,22 @@ router.get('/:id', (req, res) => {
               id: mural.neighborhood_id
             }).first()
             .then((neighborhood) => {
-              res.render('murals/show', {
-                mural,
-                artist,
-                neighborhood
-              });
-            })
-        })
-    })
+              knex('photos')
+                .where({
+                  mural_id: mural.id
+                })
+                .then((photos) => {
+                  res.render('murals/show', {
+                    mural,
+                    artist,
+                    neighborhood,
+                    photos
+                  });
+                });
+            });
+        });
+    });
 });
-
 
 // route to post a new mural
 router.post('/', (req, res) => {
@@ -88,15 +102,16 @@ router.post('/', (req, res) => {
     artist_id: req.body.artist_id,
     description: req.body.description,
     neighborhood_id: req.body.neighborhood_id,
+    photo_count: 0,
     user_id: 1
   }
-  console.log(req.body)
   knex('murals')
     .insert(newMural)
-    .then(() => {
+    .returning('*')
+    .then((murals) => {
       res.redirect('/murals');
-    })
-})
+    });
+});
 
 // route to update an mural
 router.patch('/:id', (req, res) => {
@@ -107,8 +122,8 @@ router.patch('/:id', (req, res) => {
     })
     .then(() => {
       res.redirect(`/murals/${req.params.id}`);
-    })
-})
+    });
+});
 
 // route to delete an mural
 router.delete('/:id', (req, res) => {
@@ -119,7 +134,7 @@ router.delete('/:id', (req, res) => {
     })
     .then(() => {
       res.redirect('/murals');
-    })
-})
+    });
+});
 
 module.exports = router

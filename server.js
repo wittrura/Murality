@@ -13,6 +13,8 @@ const artists = require('./routes/artists');
 const tours = require('./routes/tours');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const photos = require('./routes/photos');
+const api = require('./routes/api');
 
 
 // http method middleware for PATCH and DELETE
@@ -39,9 +41,15 @@ app.use(session({
 app.use('/murals', murals);
 app.use('/neighborhoods', neighborhoods);
 app.use('/artists', artists);
+app.use('/photos', photos);
 app.use('/tours', tours);
 app.use('/users', users);
 app.use('/auth', auth);
+app.use('/api', api);
+
+// CSS directory
+app.use("/css",express.static(__dirname + "/css"));
+
 
 // sets up initial page
 app.get('/', (req, res, next) => {
