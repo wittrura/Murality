@@ -12,6 +12,7 @@ const artists = require('./routes/artists');
 const tours = require('./routes/tours');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const photos = require('./routes/photos');
 
 // forms handling
 app.use(bodyParser.urlencoded({
@@ -34,18 +35,30 @@ app.use(session({
 app.use('/murals', murals);
 app.use('/neighborhoods', neighborhoods);
 app.use('/artists', artists);
+app.use('/photos', photos);
 app.use('/tours', tours);
 app.use('/users', users);
 app.use('/auth', auth);
 
+// CSS directory
+app.use("/css",express.static(__dirname + "/css"));
+
+
 // sets up initial page
 app.get('/', (req, res, next) => {
-  res.render('server');
+  res.render('main', {
+    user: req.session.user
+  });
 });
 
 //routes to log-in page
 app.get('/login', (req, res, next) => {
-  res.render('server/login');
+  res.render('auth/login');
+});
+
+//routes to signup page
+app.get('/signup', (req, res, next) => {
+  res.render('users/signup');
 });
 
 // routes not found
