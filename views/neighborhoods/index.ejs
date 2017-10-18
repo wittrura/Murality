@@ -1,6 +1,5 @@
 <%- include ../partials/header.ejs %>
 
-
 <h1>Neighborhood List</h1>
 <ul class='list'>
   <% neighborhoods.forEach(neighborhood => { %>
@@ -35,9 +34,10 @@
     });
   }
 
-  function getMurals(map, infoWindow, neighborhood_id) {
-    let url = null;
-    neighborhood_id ? url = `/api/murals?neighborhood=${neighborhood_id}` : url = "/api/murals";
+  function getMurals(map, infoWindow) {
+    // let url = null;
+    // neighborhood_id ? url = `/api/murals?neighborhood=${neighborhood_id}` : url = "/api/murals";
+    let url = "/api/murals";
     $.get(url, function(murals) {
       murals.forEach((mural) => {
         // parse latitude and longitude from string, to number, to google latlng

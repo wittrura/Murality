@@ -1,18 +1,95 @@
 <%- include ../partials/header.ejs %>
 
-  <body>
+<h1><%= artist.name %></h1>
+<!-- TODO we need to create a route to this show page -->
+<ul class='list'>
+  <li>Bio: <%= artist.bio %></li>
+</ul>
 
-    <h1><%= artist.name %></h1>
-    <a href ="/artists/<%=artist.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Artist</button></a>
-    <!-- TODO we need to create a route to this show page -->
-    <ul>
-      <li>Bio: <%= artist.bio %></li>
-    </ul>
-    <h2>Murals</h2>
-    <% murals.forEach(mural => { %>
-      <a href="/murals/<%=mural.id%>">
-        <img src="https://i.imgur.com/w9OmB8N.jpg" alt="mural" width="400" height="300">
-    </a>
-    <% }) %>
+<div id="map" style="height: 200px; width: 400px"></div>
 
-    <%- include ../partials/footer.ejs %>
+<h2>Murals</h2>
+<% murals.forEach(mural => { %>
+  <a href="/murals/<%=mural.id%>">
+    <img src="https://i.imgur.com/w9OmB8N.jpg" alt="mural" width="400" height="300">
+  </a>
+<% }) %>
+
+<% var artist_id = artist.id %>
+
+<script>
+  // store current artist id for filtering
+  let artist_id = <%= artist_id %>;
+  let markers = [];
+  let map = null;
+
+  function initMap() {
+    let austin = {lat:30.2711, lng: -97.7437};
+
+    // instantiate infowindow
+    let infoWindow = new google.maps.InfoWindow();
+
+    // instantiate map
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: austin
+    });
+
+    // get data to populate markers array
+    getMurals(map, infoWindow);
+
+    // handler to update the visible and hidden markers based on filtering by neighborhood_id
+    document.getElementsByClassName('list')[0].addEventListener("click", (e) => {
+      updateMarkersFilter(e.target.dataset.id);
+    });
+  }
+
+  function getMurals(map, infoWindow) {
+    let url = "/api/murals";
+    $.get(url, function(murals) {
+      murals.forEach((mural) => {
+        if(mural.artist_id === artist_id) {
+          // parse latitude and longitude from string, to number, to google latlng
+          let latLng = new google.maps.LatLng(+mural.latitude, +mural.longitude);
+
+          let marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            title: mural.name,
+            neighborhood_id: mural.neighborhood_id
+          });
+
+          let content = `
+          <div><a href='/murals/${mural.id}'>${mural.name}</a></div>
+          <div>Description: ${mural.description}</div>
+          <div>neighborhood_id: ${mural.neighborhood_id}</div>
+          `;
+
+          marker.addListener('click', function() {
+            // check that the infowindow is not already opened on this marker
+            if (infoWindow.marker != marker) {
+              // assign marker, content, and open infowindow
+              infoWindow.marker = marker;
+              infoWindow.setContent(content);
+              infoWindow.open(map, marker);
+
+              // clear marker property if an infowindow is closed
+              infoWindow.addListener('closeclick', function() {
+                infoWindow.marker = null;
+              });
+            } else {
+              infoWindow.close();
+              infoWindow.marker = null;
+            }
+          });
+          markers.push(marker);
+        }
+      });
+    });
+  }
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZ7QSSFjfBAECc_XNeQZ4q93CH5yemcs&callback=initMap">
+</script>
+<%- include ../partials/footer.ejs %>
