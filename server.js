@@ -12,6 +12,7 @@ const artists = require('./routes/artists');
 const tours = require('./routes/tours');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const photos = require('./routes/photos');
 
 // forms handling
 app.use(bodyParser.urlencoded({
@@ -34,6 +35,7 @@ app.use(session({
 app.use('/murals', murals);
 app.use('/neighborhoods', neighborhoods);
 app.use('/artists', artists);
+app.use('/photos', photos);
 app.use('/tours', tours);
 app.use('/users', users);
 app.use('/auth', auth);
