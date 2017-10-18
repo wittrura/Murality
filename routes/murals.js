@@ -35,11 +35,7 @@ router.get('/:id', (req, res) => {
       knex('neighborhoods')
       .where({id: mural.neighborhood_id}).first()
       .then((neighborhood) => {
-        knex('photos')
-        .where({mural_id: mural.id})
-        .then((photos) => {
-          res.render('murals/show', {mural, artist, neighborhood, photos});
-        })
+        res.render('murals/show', {mural, artist, neighborhood});
       })
     })
   })

@@ -6,7 +6,17 @@
       <li>Artist: <%= artist.name %></li>
       <li>Neighborhood: <%= neighborhood.name %></li>
     </ul>
+<<<<<<< HEAD
     <% photos.forEach(photo => { %>
       <img src="https://i.imgur.com/w9OmB8N.jpg" alt="mural" width="400" height="300">
     <% }) %>
 <%- include ../partials/footer.ejs %>
+=======
+    <% let curPhoto = 1; %>
+    <% while (curPhoto <= mural.photo_count) {%>
+      <img src="http://res.cloudinary.com/murality/<%=mural.name+'/'+curPhoto%>.jpg" alt="mural" width="400" height="300">
+      <% curPhoto++; %>
+    <% } %>
+  </body>
+</html>
+>>>>>>> upstream/master

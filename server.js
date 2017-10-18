@@ -44,7 +44,9 @@ app.use("/css",express.static(__dirname + "/css"));
 
 // sets up initial page
 app.get('/', (req, res, next) => {
-  res.render('main', {user: req.session.user});
+  res.render('main', {
+    user: req.session.user
+  });
 });
 
 //routes to log-in page

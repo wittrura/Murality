@@ -6,19 +6,13 @@ exports.seed = function (knex, Promise) {
       // Inserts seed entries
       knex('murals').insert([
         {
-          name: 'Big Eye', description: 'just what it sounds like', artist_id: 1, neighborhood_id: 3, user_id: 1,
+          name: 'Hope_Gallery', description: 'just what it sounds like', photo_count: 24, artist_id: 1, neighborhood_id: 3, user_id: 1,
         },
         {
-          name: 'Spiritual Lady', description: 'She seems to be having a good time', artist_id: 2, neighborhood_id: 2, user_id: 2,
+          name: 'Water_Girl', description: 'She seems to be having a good time', photo_count: 2, artist_id: 2, neighborhood_id: 2, user_id: 2,
         },
         {
-          name: 'Selena', description: 'Much better than selena gomez', artist_id: 3, neighborhood_id: 1, user_id: 1,
-        },
-        {
-          name: 'Mural Collage', description: 'Lots of murals', artist_id: 4, neighborhood_id: 3, user_id: 2,
-        },
-        {
-          name: 'Hands and Bees', description: 'They do not normally go together', artist_id: 1, neighborhood_id: 4, user_id: 3,
+          name: 'Cisco', description: 'Much better than selena gomez', photo_count: 3, artist_id: 3, neighborhood_id: 1, user_id: 1,
         },
       ]));
 };
