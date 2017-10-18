@@ -38,6 +38,10 @@ app.use('/tours', tours);
 app.use('/users', users);
 app.use('/auth', auth);
 
+// CSS directory
+app.use("/css",express.static(__dirname + "/css"));
+
+
 // sets up initial page
 app.get('/', (req, res, next) => {
   res.render('main', {user: req.session.user});

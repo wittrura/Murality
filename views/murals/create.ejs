@@ -1,38 +1,5 @@
-<!DOCTYPE html>
-<html>
+<%- include ../partials/header.ejs %>
 
-<head>
-  <style media="screen">
-    .upload-btn-wrapper {
-      position: relative;
-      overflow: hidden;
-      display: inline-block;
-    }
-
-    .btn {
-      border: 2px solid gray;
-      color: gray;
-      background-color: white;
-      padding: 8px 20px;
-      border-radius: 8px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .upload-btn-wrapper input[type=file] {
-      font-size: 100px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 0;
-    }
-  </style>
-  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-  <meta charset="utf-8">
-  <title>Mural</title>
-</head>
-
-<body>
   <h1>Add a Mural</h1>
   <form class="pure-form pure-form-stacked" action="/murals" method="post">
 
@@ -80,6 +47,4 @@
     </fieldset>
   </form>
 
-</body>
-
-</html>
+<%- include ../partials/footer.ejs %>
