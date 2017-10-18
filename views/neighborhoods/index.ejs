@@ -1,25 +1,66 @@
 <%- include ../partials/header.ejs %>
 
 
-    <h1>Neighborhood List</h1>
-    <ul>
-      <% neighborhoods.forEach(neighborhood => { %>
-        <li><%= neighborhood.name %></li>
-      <% }) %>
+<h1>Neighborhood List</h1>
+<ul>
+  <% neighborhoods.forEach(neighborhood => { %>
+    <li><%= neighborhood.name %></li>
+  <% }) %>
 
-    </ul>
+</ul>
 
-    <div id='map' style='width: 400px; height: 300px;'></div>
-    <script>
-      mapboxgl.accessToken = 'pk.eyJ1Ijoid2l0dHJ1cmEiLCJhIjoiY2o4dzFtZm1vMWlueDM4bjV4OHg0aGczZSJ9.JpDCG8sGuO_igx1JjUa4Pw';
-      var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v10',
-      center: [-97.7437,
-                30.2711], // starting position [lng, lat]
-      zoom: 9 // starting zoom
+<div id="map" style="height: 400px; width: 100%"></div>
+<script>
+  function initMap() {
+    var austin = {lat:30.2711, lng: -97.7437};
+
+    // instantiate infowindow
+    let infoWindow = new google.maps.InfoWindow();
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: austin
+    });
+
+    let murals = [
+      {id:1, name:'i love you so much', description:'not that great', locationLat:30.28, locationLng:-97.75},
+      {id:2, name:'butter half', description:'looks yummy', locationLat:30.25, locationLng:-97.74},
+    ];
+
+    murals.forEach((mural) => {
+      let marker = new google.maps.Marker({
+        position: {lat: mural.locationLat, lng: mural.locationLng},
+        map: map,
+        title: mural.name
       });
-    </script>
-    
+
+      let content = `
+        <div><a target='_blank' href='#'>${mural.name}</a></div>
+        <div>Description: ${mural.description}</div>
+      `;
+
+      marker.addListener('click', function() {
+        // check that the infowindow is not already opened on this marker
+        if (infoWindow.marker != marker) {
+          // assign marker, content, and open infowindow
+          infoWindow.marker = marker;
+          infoWindow.setContent(content);
+          infoWindow.open(map, marker);
+
+          // clear marker property if an infowindow is closed
+          infoWindow.addListener('closeclick', function() {
+            infoWindow.marker = null;
+          });
+        } else {
+          infoWindow.close();
+          infoWindow.marker = null;
+        }
+      });
+    });
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZ7QSSFjfBAECc_XNeQZ4q93CH5yemcs&callback=initMap">
+</script>
 
 <%- include ../partials/footer.ejs %>
