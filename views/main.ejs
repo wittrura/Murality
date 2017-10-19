@@ -2,22 +2,23 @@
 <div class="">
   <div class="title">
     <h3>Murality Austin</h3>
-  </div>
-  <div class="mainpagemessages">
-    <p>Not signed in</p>
     <a href="/signup">Register</a>
   </div>
+
 </div>
   <% if (user) { %>
     <p>Signed in as ID # <%= user.id %></p>
     <p>Signed in as <%= user.email %></p>
     <p><a href='/auth/logout'>Logout</a></p>
     <% } else { %>
-
+<p>Not Signed In</p>
       <% } %>
-      <img src="/assets/MuralityHomeImage.jpg" alt="muralcollage">
-      <!-- <div class="muralcollage"> -->
-      <!-- </div> -->
+
+
+<div class="container">
+  <img class="responsive-img"src="/assets/MuralityHomeImage.jpg" alt="muralcollage">
+  </div>
+
 
 
 
