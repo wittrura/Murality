@@ -1,17 +1,31 @@
-  .custom-menu-wrapper {
-    /*background-image: url("http://blog.hdwallsource.com/wp-content/uploads/2014/11/cool-gradient-wallpaper-26040-26725-hd-wallpapers.jpg");*/
-    background: #FEAC5E;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4BC0C8, #C779D0, #FEAC5E);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    margin-bottom: 2.5em;
-    white-space: nowrap;
-    position: relative;
-  }
+body {
+  background: #608a12;
+}
+h3{
+  font-family: 'Rock Salt', cursive;
+  text-align: center;
+}
+ h4{
+   font-family: 'Rock Salt', cursive;
+   text-align: center;
+   font-size: 25px;
+   }
 
-  .custom-menu {
+.neighborhoods {
+  font-family: 'Prociono', serif;
+  font-size: 25px;
+}
+
+.nav-wrapper {
+  background-color: #8c1224
+}
+
+.artists{
+  font-family: 'Prociono', serif;
+  font-size: 25px;
+}
+
+  /*.custom-menu {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -144,15 +158,15 @@
       position: absolute;
       overflow: hidden;
     }
-  }
+  }*/
 
-  .upload-btn-wrapper {
+  /*.upload-btn-wrapper {
     position: relative;
     overflow: hidden;
     display: inline-block;
-  }
+  }*/
 
-  .btn {
+  /*.btn {
     border: 2px solid gray;
     color: gray;
     background-color: white;
@@ -160,12 +174,12 @@
     border-radius: 8px;
     font-size: 20px;
     font-weight: bold;
-  }
+  }*/
 
-  .upload-btn-wrapper input[type=file] {
+  /*.upload-btn-wrapper input[type=file] {
     font-size: 100px;
     position: absolute;
     left: 0;
     top: 0;
     opacity: 0;
-  }
+  }*/

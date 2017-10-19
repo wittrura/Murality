@@ -1,11 +1,16 @@
 <%- include ../partials/header.ejs %>
+<div class="neighborhoodtitle">
+  <h3>Welcome to Austin Neighborhoods</h3>
+  <h4>See murals closest to you!</h4>
+</div>
 
-<h1>Neighborhood List</h1>
-<ul class='list'>
-  <% neighborhoods.forEach(neighborhood => { %>
-    <li data-id="<%= neighborhood.id %>"><%= neighborhood.name %></li>
-  <% }) %>
-</ul>
+<div class="neighborhoods">
+  <ul class='list'>
+    <% neighborhoods.forEach(neighborhood => { %>
+      <li data-id="<%= neighborhood.id %>"><%= neighborhood.name %></li>
+      <% }) %>
+    </ul>
+  </div>
 
 <div id="map" style="height: 400px; width: 100%"></div>
 
