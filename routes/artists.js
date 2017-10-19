@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   knex('artists')
     .then((artists) => {
       res.render('artists/index', {
-        artists
+        artists, user: req.session.user
       });
     })
 });
@@ -18,7 +18,6 @@ router.get('/create', (req, res) => {
       knex('murals')
         // .select('name')
         .then((murals) => {
-          console.log(murals, neighborhoods)
           res.render('artists/create', {
             neighborhoods,
             murals
@@ -55,7 +54,6 @@ router.get('/:id', (req, res) => {
         });
     })
     .then((murals) => {
-      console.log('Fetched Murals:', murals);
       let imageList = [];
       return murals.map(mural => {
         return knex('photos')
@@ -73,7 +71,8 @@ router.get('/:id', (req, res) => {
     .then((imageList) => {
       res.render('artists/show', {
         artist,
-        imageList
+        imageList,
+        user: req.session.user
       });
     });
 });
@@ -85,9 +84,8 @@ router.post('/', (req, res) => {
   let newArtist = {
     name: req.body.name,
     bio: req.body.bio,
-    user_id: 1
+    user_id: req.session.user.id
   };
-  console.log(req.body)
   knex('artists')
     .insert(newArtist)
     .then(() => {

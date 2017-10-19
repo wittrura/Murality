@@ -2,8 +2,9 @@
 
 
     <h1 class="splash-head">Mural List</h1>
-
+    <% if (user) { %>
     <a href ="/murals/create"><button type="submit" class="pure-button pure-button-primary">Create</button></a>
+    <% } %>
 
     <ul>
       <% murals.forEach(mural => { %>
