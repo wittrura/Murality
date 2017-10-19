@@ -20,9 +20,14 @@ $(document).ready(function(){
     <div class="slider">
 
    <ul class="slides">
-     <% imageList.forEach(image => { %>
+     <% let cropScale = '' + 400; %>
+     <% imageList.forEach(photo => { %>
+       <% let photoSegs = photo.url.split('upload'); %>
+       <% let resizedUrl = photoSegs[0] + 'upload/c_scale,h_' + cropScale + photoSegs[1]; %>
        <li>
-         <img src="<%=image.url%>" alt="mural" width="400" height="300">
+        <a href="<%='/murals/'+photo.mural_id%>">
+         <img src="<%=photo.url%>" alt="mural" width="400" height="300">
+       </a>
        <div class="caption center-align">
          <h3><%= artist.name %></h3>
        </div>

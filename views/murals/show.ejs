@@ -46,14 +46,12 @@ $(document).ready(function(){
       function(error, result) { console.log(error, result) });
     }, false);
     $(document).on('cloudinarywidgetfileuploadsuccess', function(e, data) {
-      console.log(data.secure_url);
       $.ajax({
-    type: "POST",
-    url: '/photos',
-    data: {url: data.secure_url, mural_id: <%= mural.id %>}
-  });
-})
+        type: "POST",
+        url: '/photos',
+        data: {url: data.secure_url, mural_id: <%= mural.id %>}
+      });
+    })
     </script>
-
 
 <%- include ../partials/footer.ejs %>
