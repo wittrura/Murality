@@ -10,10 +10,13 @@
 <div id="map" style="height: 200px; width: 400px"></div>
 
 <h2>Murals</h2>
-<% imageList.forEach(image => { %>
-    <a href="/murals/<%=image.mural_id%>">
-    <img src="<%=image.url%>" alt="mural" width="400" height="300">
-  </a>
+<% let cropScale = '' + 400; %>
+<% imageList.forEach( photo => { %>
+  <% let photoSegs = photo.url.split('upload'); %>
+  <% let resizedUrl = photoSegs[0] + 'upload/c_scale,h_' + cropScale + photoSegs[1]; %>
+<a href="/murals/<%=photo.mural_id%>">
+  <img src="<%=resizedUrl%>" alt="mural">
+</a>
 <% }) %>
 
 <% var artist_id = artist.id %>
