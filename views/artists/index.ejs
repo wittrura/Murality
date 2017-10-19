@@ -1,11 +1,14 @@
 <%- include ../partials/header.ejs %>
 
-<h1>Artist List</h1>
+<h3>Local Artists</h3>
 <a href ="artists/create"><button type="submit" class="pure-button pure-button-primary">Create</button></a>
+
+<div class="artists">
 <ul>
   <% artists.forEach(artist => { %>
     <li><a href="artists/<%= artist.id %>"><%= artist.name %></li>
   <% }) %>
 </ul>
+</div>
 
 <%- include ../partials/footer.ejs %>
