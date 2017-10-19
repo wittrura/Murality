@@ -1,7 +1,5 @@
 <%- include ../partials/header.ejs %>
-
 <h1><%= artist.name %></h1>
-<!-- TODO we need to create a route to this show page -->
 <a href ="/artists/<%=artist.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Artist</button></a>
 <ul class='list'>
   <li>Bio: <%= artist.bio %></li>

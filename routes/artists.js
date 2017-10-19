@@ -43,28 +43,37 @@ router.get('/:id/edit', (req, res) => {
 router.get('/:id', (req, res) => {
   let artist = null;
   knex('artists')
-    .where({id: req.params.id})
+    .where({
+      id: req.params.id
+    })
     .first()
     .then((fetchedArtist) => {
       artist = fetchedArtist;
       return knex('murals')
-      .where({ artist_id: artist.id});
+        .where({
+          artist_id: artist.id
+        });
     })
     .then((murals) => {
       let imageList = [];
       return murals.map(mural => {
         return knex('photos')
-        .where({mural_id: mural.id}).first()
-        .then((photo) => {
-          return photo;
-        });
+          .where({
+            mural_id: mural.id
+          }).first()
+          .then((photo) => {
+            return photo;
+          });
       });
     })
     .then((muralPromises) => {
       return Promise.all(muralPromises);
     })
     .then((imageList) => {
-      res.render('artists/show', {artist, imageList});
+      res.render('artists/show', {
+        artist,
+        imageList
+      });
     });
 });
 

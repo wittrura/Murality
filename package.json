@@ -44,6 +44,8 @@
     "knex": "^0.13.0",
     "method-override": "^2.3.10",
     "mapbox": "^1.0.0-beta9",
+    "materialize-css": "^0.100.2",
+    "method-override": "^2.3.10",
     "pg": "^7.3.0"
   }
 }
