@@ -48,7 +48,10 @@ app.use('/auth', auth);
 app.use('/api', api);
 
 // CSS directory
-app.use("/css",express.static(__dirname + "/css"));
+app.use("/css", express.static(__dirname + "/css"));
+
+// Assets file
+app.use("/assets", express.static(__dirname + "/assets"));
 
 
 // sets up initial page
