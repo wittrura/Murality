@@ -16,20 +16,19 @@ router.get('/', (req, res) => {
     .then((murals) => {
 
       res.render('murals/index', {
-        murals
+        murals, user: req.session.user
       });
     });
 });
 
 //grabs the new mural page
-router.get('/create', (req, res) => {
+router.get('/create', (req, res, next) => {
   knex('neighborhoods')
     // .select('name')
     .then((neighborhoods) => {
       knex('artists')
         // .select('name')
         .then((artists) => {
-          console.log(artists, neighborhoods)
           res.render('murals/create', {
             neighborhoods,
             artists
@@ -37,6 +36,7 @@ router.get('/create', (req, res) => {
         })
     });
 });
+
 
 //grabs the edit murals page
 router.get('/:id/edit', (req, res) => {
@@ -87,7 +87,8 @@ router.get('/:id', (req, res) => {
                     mural,
                     artist,
                     neighborhood,
-                    photos
+                    photos,
+                    user : req.session.user
                   });
                 });
             });

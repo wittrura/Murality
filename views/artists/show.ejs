@@ -1,6 +1,11 @@
 <%- include ../partials/header.ejs %>
 <h1><%= artist.name %></h1>
-<a href ="/artists/<%=artist.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Artist</button></a>
+<% console.log(user, artist.user_id) %>
+<% if (user) { %>
+  <% if (user.id === artist.user_id) { %>
+    <a href ="/artists/<%=artist.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Artist</button></a>
+  <% } %>
+<% } %>
 <ul class='list'>
   <li>Bio: <%= artist.bio %></li>
 </ul>
