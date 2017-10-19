@@ -2,8 +2,9 @@
 
 
     <h3 class="splash-head">Austin Murals</h3>
-
+    <% if (user) { %>
     <a href ="/murals/create"><button type="submit" class="pure-button pure-button-primary">Create</button></a>
+    <% } %>
 
     <ul>
       <% murals.forEach(mural => { %>
