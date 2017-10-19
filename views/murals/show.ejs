@@ -4,6 +4,40 @@
 
     <a href ="/murals/<%=mural.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Mural</button></a>
     <a href="#" id="upload_widget_opener"><button type="submit" class="pure-button pure-button-primary">Upload multiple images</button></a>
+    <ul>
+      <li>Description: <%= mural.description %></li>
+      <li>Artist: <%= artist.name %></li>
+      <li>Neighborhood: <%= neighborhood.name %></li>
+    </ul>
+
+<!-- material box -->
+
+<script>
+$(document).ready(function(){
+    $('.slider').slider();
+  });
+</script>
+
+
+
+<!-- slider -->
+    <div class="slider">
+
+   <ul class="slides">
+     <% photos.forEach( photo => { %>
+     <li><a href="<%=photo.url%>" target="_blank">
+       <img src= "<%=photo.url%>" alt="mural"> <!-- random image -->
+       </a>
+       <div class="caption center-align">
+         <h3><%= artist.name %></h3>
+         <h5 class="light grey-text text-lighten-3"><%= mural.description %></h5>
+       </div>
+     </li>
+     <% }) %>
+   </ul>
+ </div>
+
+
     <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
     <script type="text/javascript">
@@ -19,20 +53,5 @@
       });
     })
     </script>
-
-    <ul>
-      <li>Description: <%= mural.description %></li>
-      <li>Artist: <%= artist.name %></li>
-      <li>Neighborhood: <%= neighborhood.name %></li>
-    </ul>
-
-    <% let cropScale = '' + 400; %>
-    <% photos.forEach( photo => { %>
-      <% let photoSegs = photo.url.split('upload'); %>
-      <% let resizedUrl = photoSegs[0] + 'upload/c_scale,h_' + cropScale + photoSegs[1]; %>
-      <img src="<%=resizedUrl%>" alt="mural">
-    <% }) %>
-
-
 
 <%- include ../partials/footer.ejs %>

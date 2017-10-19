@@ -32,18 +32,20 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
+    "@google/maps": "^0.4.5",
     "bcrypt": "^1.0.3",
     "bcrypt-as-promised": "^1.1.0",
     "body-parser": "^1.18.2",
     "cloudinary": "^1.9.0",
-    "dotenv": "^4.0.0",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "knex": "^0.13.0",
-    "method-override": "^2.3.10",
     "mapbox": "^1.0.0-beta9",
+    "materialize-css": "^0.100.2",
+    "method-override": "^2.3.10",
     "pg": "^7.3.0"
   }
 }

@@ -1,7 +1,5 @@
 <%- include ../partials/header.ejs %>
-
 <h1><%= artist.name %></h1>
-<!-- TODO we need to create a route to this show page -->
 <a href ="/artists/<%=artist.id%>/edit"><button type="submit" class="pure-button pure-button-primary">Edit Artist</button></a>
 <ul class='list'>
   <li>Bio: <%= artist.bio %></li>
@@ -10,14 +8,33 @@
 <div id="map" style="height: 200px; width: 400px"></div>
 
 <h2>Murals</h2>
-<% let cropScale = '' + 400; %>
-<% imageList.forEach( photo => { %>
-  <% let photoSegs = photo.url.split('upload'); %>
-  <% let resizedUrl = photoSegs[0] + 'upload/c_scale,h_' + cropScale + photoSegs[1]; %>
-<a href="/murals/<%=photo.mural_id%>">
-  <img src="<%=resizedUrl%>" alt="mural">
-</a>
-<% }) %>
+
+
+<script>
+$(document).ready(function(){
+    $('.slider').slider();
+  });
+</script>
+
+<!-- slider -->
+    <div class="slider">
+
+   <ul class="slides">
+     <% let cropScale = '' + 400; %>
+     <% imageList.forEach(photo => { %>
+       <% let photoSegs = photo.url.split('upload'); %>
+       <% let resizedUrl = photoSegs[0] + 'upload/c_scale,h_' + cropScale + photoSegs[1]; %>
+       <li>
+        <a href="<%='/murals/'+photo.mural_id%>">
+         <img src="<%=photo.url%>" alt="mural" width="400" height="300">
+       </a>
+       <div class="caption center-align">
+         <h3><%= artist.name %></h3>
+       </div>
+     </li>
+     <% }) %>
+   </ul>
+ </div>
 
 <% var artist_id = artist.id %>
 

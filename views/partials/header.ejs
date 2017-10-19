@@ -1,33 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles.css">
-    <meta charset="utf-8">
-    <title>Murals</title>
 
-    <script
-  src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
+    <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+      <!-- <link rel="stylesheet" href="/css/styles.css"> -->
+      <meta charset="utf-8">
+
+    <title>Murals</title>
 
     </head>
     <body>
-      <div class="custom-menu-wrapper">
-          <div class="pure-menu custom-menu custom-menu-top">
-              <a href="#" class="pure-menu-heading custom-menu-brand">murality</a>
-              <a href="#" class="custom-menu-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
-          </div>
-          <div class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked" id="tuckedMenu">
-              <div class="custom-menu-screen"></div>
-              <ul class="pure-menu-list">
-                  <li class="pure-menu-item"><a href="/" class="pure-menu-link">Home</a></li>
-                  <li class="pure-menu-item"><a href="/login" class="pure-menu-link">Sign In</a></li>
-                  <li class="pure-menu-item"><a href="/signup" class="pure-menu-link">Register</a></li>
-                  <li class="pure-menu-item"><a href="/neighborhoods" class="pure-menu-link">Neighborhoods</a></li>
-                  <li class="pure-menu-item"><a href="/artists" class="pure-menu-link">Artists</a></li>
-                  <li class="pure-menu-item"><a href="/murals" class="pure-menu-link">Murals</a></li>
-                  <li class="pure-menu-item"><a href="/tours" class="pure-menu-link">Tours</a></li>
-              </ul>
-          </div>
-      </div>
+
+<nav>
+   <div class="nav-wrapper">
+     <a href="#!" class="brand-logo">Logo</a>
+     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+     <ul id="nav-mobile" class="right hide-on-med-and-down">
+       <li><a href="/">Home</a></li>
+       <li><a href="/login">Sign In</a></li>
+       <li><a href="/signup">Register</a></li>
+       <li><a href="/neighborhoods">Neighborhoods</a></li>
+       <li><a href="/artists">Artists</a></li>
+       <li><a href="/murals">Murals</a></li>
+       <li><a href="/tours">Tours</a></li>
+     </ul>
+       <ul class="side-nav" id="mobile-demo">
+         <li><a href="/">Home</a></li>
+         <li><a href="/login">Sign In</a></li>
+         <li><a href="/signup">Register</a></li>
+         <li><a href="/neighborhoods">Neighborhoods</a></li>
+         <li><a href="/artists">Artists</a></li>
+         <li><a href="/murals">Murals</a></li>
+         <li><a href="/tours">Tours</a></li>
+     </ul>
+   </div>
+ </nav>
