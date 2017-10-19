@@ -6,6 +6,7 @@ const knex = require('../db/knex');
 
 
 router.post('/', (req, res, next) => {
+  console.log(req.body);
   bcrypt.hash(req.body.password, 12)
     .then(hashed_password => knex('users')
       .insert({

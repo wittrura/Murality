@@ -1,6 +1,7 @@
 <%- include ../partials/header.ejs %>
 
-    <h1>Tour List</h1>
+    <h3>Mural Tours Around Austin</h3>
+    <h4>Create your own Tours or See What Others have Made</h4>
     <% let curTourId = 0; %>
     <% let tourCount = 1; %>
     <% let firstList = true; %>
@@ -13,11 +14,13 @@
           <% } else { %>
           </ol>
           <% } %>
-          <h3><%= tourCount++ %></h3>
+          <h4><%= tourCount++ %></h3>
           <ol>
         <% } %>
             <li><%= tour.muralName + ', ' + tour.artistName %></li>
       <% }) %>
     </ol>
+
+    <a href="/tours/new">Start a Tour!</a>
 
 <%- include ../partials/footer.ejs %>
