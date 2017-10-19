@@ -38,13 +38,13 @@
   <!-- MAP GOES HERE col m6 or m8 -->
 
 </div>
-
-<% results.forEach(function(result) { %>
-  <ul>
-    <li><%= result.name %> - <%= Math.round(result.distance / 1000) %> kms</li>
-  </ul>
-<% }); %>
-
+<% if(results) { %>
+  <% results.forEach(function(result) { %>
+    <ul>
+      <li><%= result.name %> - <%= Math.round(result.distance / 1000) %> kms</li>
+    </ul>
+  <% }); %>
+<% } %>
 <script>
   $(document).ready(function() {
     $('select').material_select();
