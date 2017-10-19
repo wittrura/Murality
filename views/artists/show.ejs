@@ -8,11 +8,28 @@
 <div id="map" style="height: 200px; width: 400px"></div>
 
 <h2>Murals</h2>
-<% imageList.forEach(image => { %>
-    <a href="/murals/<%=image.mural_id%>">
-    <img src="<%=image.url%>" alt="mural" width="400" height="300">
-  </a>
-<% }) %>
+
+
+<script>
+$(document).ready(function(){
+    $('.slider').slider();
+  });
+</script>
+
+<!-- slider -->
+    <div class="slider">
+
+   <ul class="slides">
+     <% imageList.forEach(image => { %>
+       <li>
+         <img src="<%=image.url%>" alt="mural" width="400" height="300">
+       <div class="caption center-align">
+         <h3><%= artist.name %></h3>
+       </div>
+     </li>
+     <% }) %>
+   </ul>
+ </div>
 
 <% var artist_id = artist.id %>
 
