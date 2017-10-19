@@ -1,0 +1,53 @@
+<%- include ../partials/header.ejs %>
+
+<div class="row">
+  <form class="col s12 m6" action="/tours/" method="post">
+    <div class="row">
+
+      <div class="input-field col s6">
+        <input name='origin' placeholder="Galvanize Austin, 2005 Willow Creek Dr..." id="startingAddress" type="text" class="validate">
+        <label for="startingAddress">Enter a starting address</label>
+      </div>
+
+      <div class="input-field col s12 m8">
+        <select name="mode">
+          <option value="" disabled selected>Choose a transit type</option>
+          <option value="walking">Walking</option>
+          <option value="driving">Driving</option>
+        </select>
+        <label>Materialize Select</label>
+      </div>
+
+      <div class="input-field col s12 m8">
+        <select name="maxDistanceKm">
+          <option value="" disabled selected>Choose a max distance</option>
+          <option value="1">1 km</option>
+          <option value="3">3 km</option>
+          <option value="5">5 km</option>
+        </select>
+        <label>Materialize Select</label>
+      </div>
+
+    </div>
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+  <!-- MAP GOES HERE col m6 or m8 -->
+
+</div>
+<% if(results) { %>
+  <% results.forEach(function(result) { %>
+    <ul>
+      <li><%= result.name %> - <%= Math.round(result.distance / 1000) %> kms</li>
+    </ul>
+  <% }); %>
+<% } %>
+<script>
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
+<%- include ../partials/footer.ejs %>
