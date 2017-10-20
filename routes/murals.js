@@ -118,18 +118,17 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   let newMural = {
     name: req.body.name,
-    artist_id: req.body.artist_id,
     description: req.body.description,
-    neighborhood_id: req.body.neighborhood_id,
-    photo_count: 0,
-    user_id: 1,
+    artist_id: parseInt(req.body.artist_id),
+    neighborhood_id: parseInt(req.body.neighborhood_id),
+    user_id: req.session.user.id,
     latitude: req.body.latitude,
     longitude: req.body.longitude
   }
+  console.log(newMural);
   knex('murals')
     .insert(newMural)
-    .returning('*')
-    .then((murals) => {
+    .then(() => {
       res.redirect('/murals');
     });
 });

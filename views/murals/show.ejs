@@ -26,9 +26,13 @@ $(document).ready(function(){
     <div class="slider">
 
    <ul class="slides">
+     <% if(photos) { %>
      <% photos.forEach( photo => { %>
-     <li><a href="<%=photo.url%>" target="_blank">
-       <img src= "<%=photo.url%>" alt="mural"> <!-- random image -->
+       <% let cropScale = '' + 600; %>
+         <% let photoSegs = photo.url.split('upload'); %>
+         <% let resizedUrl = photoSegs[0] + 'upload/ar_2,c_lpad,h_' + cropScale + photoSegs[1]; %>
+     <li><a href="<%=resizedUrl%>" target="_blank">
+       <img src= "<%=resizedUrl%>" alt="mural"> <!-- random image -->
        </a>
        <div class="caption center-align">
          <h3><%= artist.name %></h3>
@@ -36,6 +40,7 @@ $(document).ready(function(){
        </div>
      </li>
      <% }) %>
+     <% } %>
    </ul>
  </div>
 
