@@ -10,17 +10,18 @@ var googleMapsClient = require('@google/maps').createClient({
 
 // route to get artist list
 router.get('/', (req, res) => {
-  knex('tours_murals')
-  .select('tours.id', 'tours_murals.tour_id', 'tours_murals.mural_id', 'tours_murals.tour_stop', 'murals.name as muralName', 'artists.name as artistName', 'murals.latitude', 'murals.longitude')
-  .innerJoin('tours', 'tours_murals.tour_id', 'tours.id')
-  .innerJoin('murals', 'tours_murals.mural_id', 'murals.id')
-  .innerJoin('artists', 'murals.artist_id', 'artists.id')
-  .where('tours.user_id', userId)
-  .orderBy('tours_murals.tour_id', 'asc')
-  .orderBy('tours_murals.tour_stop', 'asc')
-  .then((toursMurals) => {
-    res.render('tours/index', {toursMurals});
-  });
+  res.redirect('tours/new');
+  // knex('tours_murals')
+  // .select('tours.id', 'tours_murals.tour_id', 'tours_murals.mural_id', 'tours_murals.tour_stop', 'murals.name as muralName', 'artists.name as artistName', 'murals.latitude', 'murals.longitude')
+  // .innerJoin('tours', 'tours_murals.tour_id', 'tours.id')
+  // .innerJoin('murals', 'tours_murals.mural_id', 'murals.id')
+  // .innerJoin('artists', 'murals.artist_id', 'artists.id')
+  // .where('tours.user_id', userId)
+  // .orderBy('tours_murals.tour_id', 'asc')
+  // .orderBy('tours_murals.tour_stop', 'asc')
+  // .then((toursMurals) => {
+  //   res.render('tours/index', {toursMurals});
+  // });
 });
 
 
