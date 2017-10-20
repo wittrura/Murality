@@ -3,13 +3,36 @@
 
     <h3 class="splash-head">Austin Murals</h3>
     <% if (user) { %>
-    <a href ="/murals/create"><button type="submit" class="pure-button pure-button-primary">Create</button></a>
+
+
+
+    <a class="waves-effect waves-light btn" href="/murals/create">Create</a>
     <% } %>
 
+
+
+
     <ul>
-      <% murals.forEach(mural => { %>
-        <li><a href="/murals/<%=mural.id%>"><%= mural.name %></a></li>
-      <% }) %>
+      <% for (let i = 0; i < murals.length; i++){ %>
+        <div class="row">
+    <div class="col s6 m4">
+      <div class="card">
+        <div class="card-image">
+          <img src="<%=imageList[i].url%>">
+          <!-- <span class="card-title"><%= murals[i].name %></span> -->
+          <p><%= murals[i].description %><h3><%= murals[i].name %></h3></p>
+        </div>
+        <div class="card-action">
+          <a href="/murals/<%=murals[i].id%>">View Mural</a>
+          <!-- <a href="#">View Mural</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+      <% } %>
 
     </ul>
 

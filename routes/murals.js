@@ -12,11 +12,29 @@ cloudinary.config({
 
 // route to get mural list
 router.get('/', (req, res) => {
+  let fetchedMurals = null;
   knex('murals')
     .then((murals) => {
-
+      fetchedMurals = murals
+      let imageList = [];
+      return murals.map(mural => {
+        return knex('photos')
+          .where({
+            mural_id: mural.id
+          }).first()
+          .then((photo) => {
+            return photo;
+          });
+      });
+    })
+    .then((muralPromises) => {
+      return Promise.all(muralPromises);
+    })
+    .then((imageList) => {
       res.render('murals/index', {
-        murals, user: req.session.user
+        murals : fetchedMurals,
+        imageList,
+        user: req.session.user
       });
     });
 });
