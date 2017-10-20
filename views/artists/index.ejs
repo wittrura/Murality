@@ -1,15 +1,28 @@
 <%- include ../partials/header.ejs %>
 
-<h1>Local Artists</h1>
+<h3>Local Artists</h3>
 <% if (user) { %>
 <a href ="artists/create"><button type="submit" class="pure-button pure-button-primary">Create</button></a>
 <% } %>
 <div>
-<ul>
-  <% artists.forEach(artist => { %>
-    <li><a href="artists/<%= artist.id %>"><%= artist.name %></li>
-  <% }) %>
-</ul>
+  <ul>
+    <div class="row">
+    <% for (let i = 0; i < artists.length; i++){ %>
+        <div class="col s6 m4">
+          <div class="small card">
+            <div class="card-image">
+              <p>
+                  <h3><%= artists[i].name %></h3></p>
+            </div>
+            <div class="card-action">
+              <a href="/artists/<%=artists[i].id%>">View Artist</a>
+              <!-- <a href="#">View Mural</a> -->
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+  </ul>
 </div>
 
 <%- include ../partials/footer.ejs %>

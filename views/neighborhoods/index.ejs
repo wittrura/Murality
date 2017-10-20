@@ -5,11 +5,22 @@
 </div>
 
 <div class="neighborhoods">
-  <ul class='list'>
-    <% neighborhoods.forEach(neighborhood => { %>
-      <li data-id="<%= neighborhood.id %>"><%= neighborhood.name %></li>
-      <% }) %>
+  <div>
+    <ul>
+      <div class="row">
+      <% for (let i = 0; i < neighborhoods.length; i++){ %>
+          <div class="col s6 m4">
+            <div class="card-panel">
+              <div class="card-image">
+                <p>
+                    <h3><%= neighborhoods[i].name %></h3></p>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
     </ul>
+  </div>
   </div>
 
 <div id="map" style="height: 400px; width: 100%"></div>

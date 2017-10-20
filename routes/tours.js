@@ -24,62 +24,78 @@ router.get('/', (req, res) => {
 });
 
 
-//
+// route to "create" a new tour
 router.get('/new', (req, res) => {
-  res.render('tours/new', {results : null})
+  res.render('tours/new', {results: null, directions: null})
 });
 
-
 // submit request for a new tour
-router.post('/', (req, res) => {
-  // console.log(req.body);
-  let origin;
-
-  // geocode the address entered by the user in the form
-  googleMapsClient.geocode({
-    address: req.body.origin
-  }, function(err, response) {
-    if (!err) {
-      // store this address to be the origin for distance calculations
-      origin = response.json.results[0].formatted_address;
-    }
-
-    let destinations = [];
-    let allMurals = [];
-    // store each mural's lat/lng in an array for distance calculations
-    knex('murals')
-      .then((murals) => {
-        murals.forEach((mural) => {
-          destinations.push(`${mural.latitude}, ${mural.longitude}`);
-          allMurals.push(mural);
-        });
-
-        googleMapsClient.distanceMatrix({
-          origins: [origin],
-          destinations: destinations,
-          units: 'metric'
-        }, function(err, response) {
-          if (!err) {
-            // distance in meters
-            response.json.rows[0].elements.forEach((element, i) => {
-              // update stored murals values with distance property
-              allMurals[i].distance = element.distance.value;
-            });
-
-
-            let filteredResults = [];
-            // filter all murals down to only those within the user-specified distance
-            allMurals.forEach((mural) => {
-              if (mural.distance < req.body.maxDistanceKm * 1000) {
-                filteredResults.push(mural);
-              }
-            });
-
-            res.render('tours/new', {results: filteredResults})
-          }
-        });
-      });
-  });
+// router.post('/fetchtours', (req, res) => {
+//   // console.log(req.body);
+//   let origin;
+//
+//   // geocode the address entered by the user in the form
+//   googleMapsClient.geocode({
+//     address: req.body.origin
+//   }, function(err, response) {
+//     if (!err) {
+//       // store this address to be the origin for distance calculations
+//       origin = response.json.results[0].formatted_address;
+//     }
+//
+//     let destinations = [];
+//     let allMurals = [];
+//     // store each mural's lat/lng in an array for distance calculations
+//     knex('murals')
+//       .then((murals) => {
+//         murals.forEach((mural) => {
+//           destinations.push(`${mural.latitude}, ${mural.longitude}`);
+//           allMurals.push(mural);
+//         });
+//
+//         googleMapsClient.distanceMatrix({
+//           origins: [origin],
+//           destinations: destinations,
+//           units: 'metric'
+//         }, function(err, response) {
+//           if (!err) {
+//             // distance in meters
+//             response.json.rows[0].elements.forEach((element, i) => {
+//               // update stored murals values with distance property
+//               allMurals[i].distance = element.distance.value;
+//             });
+//
+//
+//             let filteredResults = [];
+//             let filteredDestinationsLatLng = [];
+//             // filter all murals down to only those within the user-specified distance
+//             allMurals.forEach((mural) => {
+//               if (mural.distance < req.body.maxDistanceKm * 1000) {
+//                 filteredResults.push(mural);
+//                 filteredDestinationsLatLng.push(`${mural.latitude}, ${mural.longitude}`);
+//               }
+//             });
+//
+//             googleMapsClient.directions({
+//               origin: origin,
+//               destination: origin,
+//               waypoints: destinations,
+//               mode: req.body.mode || 'driving',
+//               optimize: true
+//             }, function(err, response) {
+//               // console.log(response.json);
+//               // console.log(response.json.routes[0].legs);
+//               // console.log(filteredResults);
+//               console.log(response.json);
+//               console.log(response.json.routes[0].legs);
+//
+//               // res.render('tours/new', {results: filteredResults, directions: JSON.stringify({thing:'yo'}) })
+//               res.json(response.json);
+//             });
+//           }
+//         });
+//       });
+//   });
 
   // knex('tours')
   //   .insert(req.body)
@@ -87,7 +103,7 @@ router.post('/', (req, res) => {
   //     res.redirect('/tours');
   //   });
   // res.redirect('/tours/new');
-});
+// });
 
 
 // route to update an artist

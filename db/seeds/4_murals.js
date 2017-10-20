@@ -5,7 +5,7 @@ exports.seed = function (knex, Promise) {
       // Inserts seed entries
       knex('murals').insert([
         {
-          name: 'Hope Gallery', description: 'Graffiti park where anyone can view collage of various murals in addition to creating artwork themselves.', artist_id: 1, neighborhood_id: 7, user_id: 1, latitude:30.28, longitude:-97.75
+          name: 'Hope Gallery', description: 'Graffiti park full of anonymous artists', artist_id: 1, neighborhood_id: 7, user_id: 1, latitude:30.28, longitude:-97.75
         },
         {
           name: 'Guide me home', description: "One of three large murals created during Austin's 2015 SXSW", artist_id: 2, neighborhood_id: 4, user_id: 1, latitude:30.27, longitude:-97.74
@@ -35,7 +35,7 @@ exports.seed = function (knex, Promise) {
           name: 'Till death do us part', description: 'Two skulls above a field of flowers.', artist_id: 4, neighborhood_id: 5, user_id: 1, latitude:30.27, longitude:  -97.73
         },
         {
-          name: 'Checkers', description: 'Large Mural with a man dressed as an animal craddles one.', artist_id: 5, neighborhood_id: 4, user_id: 1, latitude:30.2705, longitude:  -97.7405
+          name: 'Checkers', description: 'Large Mural with a man holding an animal.', artist_id: 5, neighborhood_id: 4, user_id: 1, latitude:30.2705, longitude:  -97.7405
         },
         {
           name: 'Word to the Wise', description: 'Large Mural of an owl.', artist_id: 6, neighborhood_id: 4, user_id: 1, latitude:30.271, longitude:  -97.741

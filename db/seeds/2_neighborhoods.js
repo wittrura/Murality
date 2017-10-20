@@ -12,5 +12,7 @@ exports.seed = function (knex, Promise) {
         { name: 'East 6th District', area: 'East Central' },
         { name: 'Rosedale', area: 'North Central' },
         { name: 'Tarrytown', area: 'West Central' },
+        { name: 'Domain', area: 'North' },
+        { name: 'South Park Meadows', area: 'South' },
       ]));
 };
