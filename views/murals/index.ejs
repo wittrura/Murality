@@ -1,8 +1,8 @@
 <%- include ../partials/header.ejs %>
 
 
-    <h3 class="splash-head">Austin Murals</h3>
-    <% if (user) { %>
+  <h3 class="splash-head">Austin Murals</h3>
+  <% if (user) { %>
 
 
 
@@ -12,28 +12,30 @@
 
 
 
-    <ul>
-      <% for (let i = 0; i < murals.length; i++){ %>
+      <ul>
         <div class="row">
-    <div class="col s6 m4">
-      <div class="card">
-        <div class="card-image">
-          <img src="<%=imageList[i].url%>">
-          <!-- <span class="card-title"><%= murals[i].name %></span> -->
-          <p><%= murals[i].description %><h3><%= murals[i].name %></h3></p>
-        </div>
-        <div class="card-action">
-          <a href="/murals/<%=murals[i].id%>">View Mural</a>
-          <!-- <a href="#">View Mural</a> -->
-        </div>
-      </div>
-    </div>
-  </div>
+        <% for (let i = 0; i < murals.length; i++){ %>
+          <% let cropScale = '' + 600; %>
+            <% let photoSegs = imageList[i].url.split('upload'); %>
+            <% let resizedUrl = photoSegs[0] + 'upload/ar_2,c_lpad,h_' + cropScale + photoSegs[1]; %>
+            <div class="col s6 m4" display="inline-block" float="left">
+              <div class="card">
+                <div class="card-image">
+                  <% console.log(resizedUrl) %>
+                  <img class="responsive-img" src="<%=resizedUrl%>">
+                  <!-- <span class="card-title"><%= murals[i].name %></span> -->
+                  <p>
+                    <%= murals[i].description %>
+                      <h5><%= murals[i].name %></h5></p>
+                </div>
+                <div class="card-action">
+                  <a href="/murals/<%=murals[i].id%>">View Mural</a>
+                  <!-- <a href="#">View Mural</a> -->
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+      </ul>
 
-
-
-      <% } %>
-
-    </ul>
-
-<%- include ../partials/footer.ejs %>
+      <%- include ../partials/footer.ejs %>

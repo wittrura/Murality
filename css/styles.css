@@ -11,6 +11,11 @@ h3{
    text-align: center;
    font-size: 25px;
    }
+  h5{
+    font-family: 'Rock Salt', cursive;
+    text-align: center;
+
+  }
 
 .neighborhoods {
   font-family: 'Prociono', serif;
@@ -24,4 +29,9 @@ h3{
 .artists{
   font-family: 'Prociono', serif;
   font-size: 25px;
+}
+
+.card-panel{
+  height: 200px;
+  background-color: teal;
 }
