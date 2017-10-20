@@ -1,25 +1,24 @@
 <%- include ../partials/header.ejs %>
 
 <div class="row">
-  <form class="col s12 m6" action="/tours/" method="post">
+  <form class="col s12 m6">
     <div class="row">
-
-      <div class="input-field col s6">
+      <div class="input-field col s12">
         <input name='origin' placeholder="Galvanize Austin, 2005 Willow Creek Dr..." id="startingAddress" type="text" class="validate">
         <label for="startingAddress">Enter a starting address</label>
       </div>
 
-      <div class="input-field col s12 m8">
-        <select name="mode">
+      <div class="input-field col s12 m6">
+        <select name="mode" id="mode">
           <option value="" disabled selected>Choose a transit type</option>
-          <option value="walking">Walking</option>
-          <option value="driving">Driving</option>
+          <option value="WALKING">Walking</option>
+          <option value="DRIVING">Driving</option>
         </select>
         <label>Materialize Select</label>
       </div>
 
-      <div class="input-field col s12 m8">
-        <select name="maxDistanceKm">
+      <div class="input-field col s12 m6">
+        <select name="maxDistanceKm" id="maxDistanceKm">
           <option value="" disabled selected>Choose a max distance</option>
           <option value="1">1 km</option>
           <option value="3">3 km</option>
@@ -30,14 +29,27 @@
 
     </div>
     <div class="row">
-      <button class="btn waves-effect waves-light" type="submit">Submit
+      <!-- <button id="submit" class="btn waves-effect waves-light">Submit
         <i class="material-icons right">send</i>
-      </button>
+      </button> -->
+      <a href="#" id="submit" class="btn waves-effect waves-light">Submit
+        <i class="material-icons right">send</i>
+      </a>
     </div>
   </form>
-  <!-- MAP GOES HERE col m6 or m8 -->
-
+  <div class="col s12 m6">
+    <div id="map" style="height: 400px; width: 100%"></div>
+    <div id="directions-panel" style="
+        margin-top: 10px;
+        background-color: #FFEE77;
+        padding: 10px;
+        overflow: scroll;
+        height: 174px;
+      }"></div>
+  </div>
 </div>
+
+<!-- TODO - delete after directions work -->
 <% if(results) { %>
   <% results.forEach(function(result) { %>
     <ul>
@@ -45,9 +57,150 @@
     </ul>
   <% }); %>
 <% } %>
+
+
 <script>
   $(document).ready(function() {
     $('select').material_select();
   });
+
+  // let map;
+  // let directionsDisplay;
+  //
+  // function initMap() {
+  //   let austin = {lat:30.2711, lng: -97.7437};
+  //   map = new google.maps.Map(document.getElementById('map'), {
+  //     zoom: 6,
+  //     center: austin
+  //   });
+  //   directionsDisplay = new google.maps.DirectionsRenderer;
+  //   directionsDisplay.setMap(map);
+  //
+  //   document.getElementById('submit').addEventListener("click", () => {
+  //     addRoutes();
+  //     // console.log('clicked button');
+  //   });
+  // }
+  //
+  // function addRoutes() {
+  //   $.post( "/tours/fetchtours", {
+  //     mode: 'walking', maxDistanceKm: 3, origin: 'galvanize austin'
+  //   }, function(data) {
+  //
+  //     console.log(data);
+  //     directionsDisplay.setDirections(data);
+  //     // console.log(directionsDisplay);
+  //
+  //     var route = data.routes[0];
+  //     var summaryPanel = document.getElementById('directions-panel');
+  //     summaryPanel.innerHTML = '';
+  //     // For each route, display summary information.
+  //     for (var i = 0; i < route.legs.length; i++) {
+  //       var routeSegment = i + 1;
+  //       summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+  //       '</b><br>';
+  //       summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+  //       summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+  //       summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+  //     }
+  //   });
+  // }
+
+  function initMap() {
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    let austin = {lat:30.2711, lng: -97.7437};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: austin
+    });
+    directionsDisplay.setMap(map);
+
+    document.getElementById('submit').addEventListener('click', function() {
+      calculateAndDisplayRoute(directionsService, directionsDisplay);
+    });
+  }
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    var waypts = [];
+
+    // API call to get all murals
+    $.get("/api/murals", function(murals) {
+      let muralsLatLng = []
+      murals.forEach((mural) => {
+        muralsLatLng.push(`${mural.latitude}, ${mural.longitude}`);
+      });
+
+      // filter murals based on distance
+      var distanceMatrixService = new google.maps.DistanceMatrixService();
+      distanceMatrixService.getDistanceMatrix(
+        {
+          origins: [document.getElementById('startingAddress').value],
+          destinations: muralsLatLng,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            response.rows[0].elements.forEach((element, i) => {
+              // update stored murals values with distance property
+              murals[i].distance = element.distance.value;
+            });
+          } else {
+            // ERROR HANDLING FOR BAD DISTANCE REQUEST
+          }
+
+          // filter all murals down to only those within the user-specified distance
+          let filteredMurals = [];
+          let maxDistanceKm = document.getElementById('maxDistanceKm').value;
+          murals.forEach((mural) => {
+            if (mural.distance < maxDistanceKm * 1000) {
+              filteredMurals.push(mural);
+            }
+          });
+
+          // push filtered murals as waypoints
+          for (var i = 0; i < filteredMurals.length; i++) {
+            waypts.push({
+              location: `${filteredMurals[i].latitude}, ${filteredMurals[i].longitude}`,
+              stopover: true
+            })
+          }
+
+          // get directions from starting point specified by user, with waypoints
+          // that meet the distance requirements
+          directionsService.route({
+            origin: document.getElementById('startingAddress').value,
+            destination: document.getElementById('startingAddress').value,
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: document.getElementById('mode').value
+          }, function(response, status) {
+            if (status === 'OK') {
+              // output directions to map
+              directionsDisplay.setDirections(response);
+
+              // output leg information to html
+              var route = response.routes[0];
+              var summaryPanel = document.getElementById('directions-panel');
+              summaryPanel.innerHTML = '';
+              // For each route, display summary information.
+              for (var i = 0; i < route.legs.length; i++) {
+                var routeSegment = i + 1;
+                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                '</b><br>';
+                summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+                summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+                summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+              }
+            } else {
+              window.alert('Directions request failed due to ' + status);
+            }
+          });
+        });
+    });
+  }
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWZ7QSSFjfBAECc_XNeQZ4q93CH5yemcs&callback=initMap">
 </script>
 <%- include ../partials/footer.ejs %>
