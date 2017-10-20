@@ -3,9 +3,6 @@
 
   <h3 class="splash-head">Austin Murals</h3>
   <% if (user) { %>
-
-
-
     <a class="waves-effect waves-light btn" href="/murals/create">Create</a>
     <% } %>
 
@@ -15,13 +12,13 @@
       <ul>
         <div class="row">
         <% for (let i = 0; i < murals.length; i++){ %>
+          <% if (imageList[i]!==undefined){ %>
           <% let cropScale = '' + 600; %>
             <% let photoSegs = imageList[i].url.split('upload'); %>
             <% let resizedUrl = photoSegs[0] + 'upload/ar_2,c_lpad,h_' + cropScale + photoSegs[1]; %>
             <div class="col s6 m4" display="inline-block" float="left">
               <div class="card">
                 <div class="card-image">
-                  <% console.log(resizedUrl) %>
                   <img class="responsive-img" src="<%=resizedUrl%>">
                   <!-- <span class="card-title"><%= murals[i].name %></span> -->
                   <p>
@@ -34,6 +31,23 @@
                 </div>
               </div>
             </div>
+            <% } else { %>
+            <div class="col s6 m4" display="inline-block" float="left">
+              <div class="card">
+                <div class="card-image">
+                  <img class="responsive-img" src="https://www.jennybeaumont.com/wp-content/uploads/2015/03/placeholder.gif">
+                  <!-- <span class="card-title"><%= murals[i].name %></span> -->
+                  <p>
+                    <%= murals[i].description %>
+                      <h5><%= murals[i].name %></h5></p>
+                </div>
+                <div class="card-action">
+                  <a href="/murals/<%=murals[i].id%>">View Mural</a>
+                  <!-- <a href="#">View Mural</a> -->
+                </div>
+              </div>
+            </div>
+            <% } %>
             <% } %>
           </div>
       </ul>

@@ -54,7 +54,6 @@ router.get('/:id', (req, res) => {
         });
     })
     .then((murals) => {
-      console.log('Fetched Murals:', murals);
       let imageList = [];
       return murals.map(mural => {
         return knex('photos')
