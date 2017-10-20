@@ -7,13 +7,12 @@
 <div class="neighborhoods">
   <div>
     <ul>
-      <div class="row">
+      <div class="row list">
       <% for (let i = 0; i < neighborhoods.length; i++){ %>
-          <div class="col s6 m4">
-            <div class="card-panel">
-              <div class="card-image">
-                <p>
-                    <h3><%= neighborhoods[i].name %></h3></p>
+          <div class="col s6 m4" data-id="<%= neighborhoods[i].id%>">
+            <div class="card-panel" data-id="<%= neighborhoods[i].id%>">
+              <div class="card-image" data-id="<%= neighborhoods[i].id%>">
+                <p><h3 data-id="<%= neighborhoods[i].id%>"><%= neighborhoods[i].name %></h3></p>
               </div>
             </div>
           </div>
@@ -96,6 +95,7 @@
   }
 
   function updateMarkersFilter(neighborhood_id) {
+    console.log(neighborhood_id);
     for (var i = 0; i < markers.length; i++) {
       // display markers if no id is provided for filter, or if neighborhood_id matches filter
       if(!neighborhood_id || markers[i].neighborhood_id === +neighborhood_id) {

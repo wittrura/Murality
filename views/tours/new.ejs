@@ -1,14 +1,14 @@
 <%- include ../partials/header.ejs %>
 
 <div class="row">
-  <form class="col s12 m6">
+  <form class="col s12 m4">
     <div class="row">
       <div class="input-field col s12">
         <input name='origin' placeholder="Galvanize Austin, 2005 Willow Creek Dr..." id="startingAddress" type="text" class="validate">
         <label for="startingAddress">Enter a starting address</label>
       </div>
 
-      <div class="input-field col s12 m6">
+      <div class="input-field col s12 m8">
         <select name="mode" id="mode">
           <option value="" disabled selected>Choose a transit type</option>
           <option value="WALKING">Walking</option>
@@ -17,7 +17,7 @@
         <label>Materialize Select</label>
       </div>
 
-      <div class="input-field col s12 m6">
+      <div class="input-field col s12 m8">
         <select name="maxDistanceKm" id="maxDistanceKm">
           <option value="" disabled selected>Choose a max distance</option>
           <option value="1">1 km</option>
@@ -37,15 +37,18 @@
       </a>
     </div>
   </form>
-  <div class="col s12 m6">
-    <div id="map" style="height: 400px; width: 100%"></div>
+  <div class="col s12 m4">
+    <div id="map" style="height: 400px; width: 100%; margin-top: 10px;"></div>
+  </div>
+  <div class="col s12 m4">
     <div id="directions-panel" style="
-        margin-top: 10px;
-        background-color: #FFEE77;
-        padding: 10px;
-        overflow: scroll;
-        height: 174px;
-      }"></div>
+    margin-top: 10px;
+    background-color: #FFEE77;
+    padding: 10px;
+    overflow: scroll;
+    height: 300px;
+    }">
+    </div>
   </div>
 </div>
 
