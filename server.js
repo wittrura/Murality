@@ -37,6 +37,17 @@ app.use(session({
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
+// store user value from session
+var appendLocalsToUseInViews = function(req, res, next) {
+  //append request and session to use directly in views and avoid passing around needless stuff
+  res.locals.request = req;
+  if(req.session != null && req.session.user != null) {
+    res.locals.user = req.session.user;
+  }
+  next(null, req, res);
+};
+app.use(appendLocalsToUseInViews);
+
 // routes
 app.use('/murals', murals);
 app.use('/neighborhoods', neighborhoods);
@@ -91,5 +102,8 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
+
+
+
 
 module.exports = app;

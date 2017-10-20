@@ -22,7 +22,6 @@ router.get('/logout', (req, res, next) => {
 
 // add user as logged in, create session
 router.post('/login', (req, res, next) => {
-  // console.log(req.body);
   knex('users')
     .where({email: req.body.email})
     .first()
@@ -33,7 +32,6 @@ router.post('/login', (req, res, next) => {
       bcrypt.compare(req.body.password, user.hashed_password)
         .then(() => {
           req.session.user = user;
-          // console.log(req.session);
           res.redirect('/');
         })
         // .catch(bcrypt.MISMATCH_ERROR => {
