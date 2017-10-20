@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-
     <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -28,28 +27,36 @@
 
     </head>
     <body>
-
-<nav>
-  <div class="nav-wrapper">
-     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-     <div class="container">
-       <a href="#!" class="brand-logo">Logo</a>
-     <ul id="nav-mobile" class="right hide-on-med-and-down">
-       <li><a href="/">Home</a></li>
-       <li><a href="/login">Sign In</a></li>
-       <li><a href="/neighborhoods">Neighborhoods</a></li>
-       <li><a href="/artists">Artists</a></li>
-       <li><a href="/murals">Murals</a></li>
-       <li><a href="/tours">Tours</a></li>
-     </ul>
-       <ul class="side-nav" id="mobile-demo">
-         <li><a href="/">Home</a></li>
-         <li><a href="/login">Sign In</a></li>
-         <li><a href="/neighborhoods">Neighborhoods</a></li>
-         <li><a href="/artists">Artists</a></li>
-         <li><a href="/murals">Murals</a></li>
-         <li><a href="/tours">Tours</a></li>
-     </ul>
-   </div>
-   </div>
- </nav>
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <div class="container">
+            <a href="/" class="brand-logo"><img class="responsive-img" src="assets/d5kcode.png" alt="murality logo"></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li><a href="/">Home</a></li>
+              <% if(locals.user) { %>
+                <li><a href='/auth/logout'>Logout (<%= locals.user.email %>)</a></li>
+                <% } else { %>
+                <li><a href="/login">Login</a></li>
+              <% } %>
+                <li><a href="/neighborhoods">Neighborhoods</a></li>
+                <li><a href="/artists">Artists</a></li>
+                <li><a href="/murals">Murals</a></li>
+                <li><a href="/tours">Tours</a></li>
+              </ul>
+              <ul class="side-nav" id="mobile-demo">
+                <li><a href="/">Home</a></li>
+                <% if(locals.user) { %>
+                  <li><a href='/auth/logout'>Logout (<%= locals.user.email %>)</a></li>
+                  <% } else { %>
+                  <li><a href="/login">Login</a></li>
+                <% } %>
+                <li><a href="/neighborhoods">Neighborhoods</a></li>
+                <li><a href="/artists">Artists</a></li>
+                <li><a href="/murals">Murals</a></li>
+                <li><a href="/tours">Tours</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+    <div class="container">

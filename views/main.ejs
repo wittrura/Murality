@@ -1,25 +1,13 @@
 <%- include ./partials/header.ejs %>
-<div class="">
+
   <div class="title">
-    <h3>Murality Austin</h3>
-    <a href="/signup">Register</a>
+    <div class="row">
+      <h3 class="">Murality Austin</h3>
+      <a href="/signup" class="waves-effect waves-light btn-large">
+        <i class="material-icons left">group_add</i>Sign up now!
+      </a>
+    </div>
   </div>
-
-</div>
-  <% if (user) { %>
-    <p>Signed in as ID # <%= user.id %></p>
-    <p>Signed in as <%= user.email %></p>
-    <p><a href='/auth/logout'>Logout</a></p>
-    <% } else { %>
-<p>Not Signed In</p>
-      <% } %>
-
-
-<div class="container">
   <img class="responsive-img"src="/assets/MuralityHomeImage.jpg" alt="muralcollage">
-  </div>
-
-
-
 
 <%- include ./partials/footer.ejs %>
