@@ -11,20 +11,31 @@ The team consisted of:
 * [Jayme Ramsay](https://github.com/jaymeramsay)
 
 ## How it Works
+The application uses the ejs templating engine to render all views. Users are able to register and sign in via Bcrypt, which provides a different experience from non-authenticated users.
 
+Authenticated users are able to create new entries for artists or murals, or add new photos which are stored using the Cloudinary API.
+
+All users are also able to plan visits to the different murals using the Google Maps Directions API and setting distance fences or transit methods.
 
 ### Inspiration
+Austin is a city known for its vibrant creative and artistic communities. This is made especially clear in the many murals and graffiti installments across the town. Some are large, commissioned works while others may be small and only noticed after a close inspection of a building.
 
+We love to keep it weird here, so we thought there should be a better way to share and experience some of that weird.
 
 ## Challenges
+* Photo storage - We initially reviewed storing images locally and experimented using BLOB's in PostgreSQL and file paths. This was difficult to use in the ejs templates, and it was decided to instead use a hosted service like Cloudinary which would provide links that could be better included in anchor and img tags.
 
+* Routing and directions planning - We had to find a way to search for directions based on a user giving a max distance they would want to travel. Given the limit of 23 waypoints in the Directions API, we decided to first run all murals through the Distance Matrix API to reduce to a list of murals meeting the distance requirement. We could then feed that into the Directions request.
+
+* Git versioning and general team management - this was our first team product and it took a few days to start getting comfortable with the workflow. It took a few rejected PR's but the team settled in and the process was much smoother towards the end of the project.
 
 ## Features
-
+* As as user, I can safely register and sign in to get the full accessibility of the site
+* As a user, I can create, read, update, and delete entries for artists and murals to share new discoveries
+* As a user, I can upload an image of a mural so it can be searched by browsing through neighborhoods or artists
+* As a user, I can plan tours to different murals so I can visit any sites that look interesting
 
 ## Built With
-
-
 * [Node](https://nodejs.org/en/) - Backend server
 * [Express](http://expressjs.com/) - Backend server, routing, middleware
 * [Knex](http://knexjs.org/) - SQL query builder
@@ -43,4 +54,4 @@ The team consisted of:
 * **Jayme Ramsay** [Github](https://github.com/jaymeramsay)
 
 
-## Acknowledgments
+<!-- ## Acknowledgments -->
