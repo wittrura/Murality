@@ -1,6 +1,8 @@
 # Murality Austin
 Murality Austin is an interactive web application designed to help locals and tourists in the Austin area find and share cool, interesting murals and urban artwork
 
+![Murals](./assets/MuralityHomeImage.jpg)
+
 ## Background
 This application was our second quarter project in the Galvanize Fullstack Web Development immersive program and was completed over the course of one week.
 
@@ -27,7 +29,7 @@ We love to keep it weird here, so we thought there should be a better way to sha
 
 * Mural Photo Removal - The way we generated an array of photo images for the photo slides was not initially built to support photo removal. To fix this the code was later refactored to all any photo in the list to be removed as well as a default photo when the array of images became empty.
 
-* local image to Cloudinary upload - The Cloudinary gui upload process was very slow and cumbersome. To fix this we used the Cloudinary library library and javascript file system library to upload all the images in a designated folder. This required the use of Promise.all the ensure all the images had been uploaded before proceeding.
+* Local image to Cloudinary upload - The Cloudinary gui upload process was very slow and cumbersome. To fix this we used the Cloudinary library library and javascript file system library to upload all the images in a designated folder. This required the use of Promise.all the ensure all the images had been uploaded before proceeding.
 
 * Routing and directions planning - We had to find a way to search for directions based on a user giving a max distance they would want to travel. Given the limit of 23 waypoints in the Directions API, we decided to first run all murals through the Distance Matrix API to reduce to a list of murals meeting the distance requirement. We could then feed that into the Directions request.
 
@@ -38,6 +40,17 @@ We love to keep it weird here, so we thought there should be a better way to sha
 * As a user, I can create, read, update, and delete entries for artists and murals to share new discoveries
 * As a user, I can upload an image of a mural so it can be searched by browsing through neighborhoods or artists
 * As a user, I can plan tours to different murals so I can visit any sites that look interesting
+
+##### Neighborhoods Page
+![neighborhoods](./assets/readme_neighborhoods.png)
+##### Artists Page
+![artists](./assets/readme_artists.png)
+##### Artist Page
+![artist](./assets/readme_artist.png)
+##### Murals Page
+![murals](./assets/readme_murals.png)
+##### Tours Page
+![tours](./assets/readme_tours.png)
 
 ## Built With
 * [Node](https://nodejs.org/en/) - Backend server
