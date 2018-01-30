@@ -30,7 +30,7 @@ We love to keep it weird here, so we thought there should be a better way to sha
 * Git versioning and general team management - this was our first team product and it took a few days to start getting comfortable with the workflow. It took a few rejected PR's but the team settled in and the process was much smoother towards the end of the project.
 
 ## Features
-* As as user, I can safely register and sign in to get the full accessibility of the site
+* As a user, I can safely register and sign in to get the full accessibility of the site
 * As a user, I can create, read, update, and delete entries for artists and murals to share new discoveries
 * As a user, I can upload an image of a mural so it can be searched by browsing through neighborhoods or artists
 * As a user, I can plan tours to different murals so I can visit any sites that look interesting
