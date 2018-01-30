@@ -25,6 +25,10 @@ We love to keep it weird here, so we thought there should be a better way to sha
 ## Challenges
 * Photo storage - We initially reviewed storing images locally and experimented using BLOB's in PostgreSQL and file paths. This was difficult to use in the ejs templates, and it was decided to instead use a hosted service like Cloudinary which would provide links that could be better included in anchor and img tags.
 
+* Mural Photo Removal - The way we generated an array of photo images for the photo slides was not initially built to support photo removal. To fix this the code was later refactored to all any photo in the list to be removed as well as a default photo when the array of images became empty.
+
+* local image to Cloudinary upload - The Cloudinary gui upload process was very slow and cumbersome. To fix this we used the Cloudinary library library and javascript file system library to upload all the images in a designated folder. This required the use of Promise.all the ensure all the images had been uploaded before proceeding.
+
 * Routing and directions planning - We had to find a way to search for directions based on a user giving a max distance they would want to travel. Given the limit of 23 waypoints in the Directions API, we decided to first run all murals through the Distance Matrix API to reduce to a list of murals meeting the distance requirement. We could then feed that into the Directions request.
 
 * Git versioning and general team management - this was our first team product and it took a few days to start getting comfortable with the workflow. It took a few rejected PR's but the team settled in and the process was much smoother towards the end of the project.
